@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.NongBoohae" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -12,5 +12,11 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:buttonStyle">@style/PretendardButtonStyle</item>
+        <item name="android:editTextStyle">@style/PretendardEditTextStyle</item>
+        <item name="android:radioButtonStyle">@style/PretendardRadioButtonStyle</item>
+        <item name="android:checkboxStyle">@style/PretendardCheckboxStyle</item>
+        <item name="android:textViewStyle">@style/PretendardTextViewStyle</item>
     </style>
 </resources>
