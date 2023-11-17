@@ -20,6 +20,7 @@
     <color name="gray6">#808080</color>
     <color name="gray7">#444444</color>
     <color name="gray1">#919191</color>
+    <color name="transparent">#00FFFFFF</color>
 
 
 </resources>
