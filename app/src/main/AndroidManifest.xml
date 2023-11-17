@@ -14,32 +14,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NongBoohae"
         tools:targetApi="31">
-
         <activity
-            android:name=".presentation.login.LoginActivity"
-            android:exported="true">
+            android:name=".presentation.diagnosis.DiagnosisResultActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.login.LoginActivity"
+            android:exported="true">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:host="oauth"
+
+                <data
+                    android:host="oauth"
                     android:scheme="kakao3284a9b05a9b22089d8f51535c03fd05" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".presentation.diagnosis.DiagnosisResultActivity"
-            android:exported="false" />
 
     </application>
 
