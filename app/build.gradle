@@ -7,6 +7,10 @@ android {
     namespace 'com.konkuk.nongboohae'
     compileSdk 34
 
+    buildFeatures {
+        viewBinding true
+    }
+
     dataBinding {
         enabled = true
     }
