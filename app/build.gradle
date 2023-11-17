@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.konkuk.nongboohae'
-    compileSdk 33
+    compileSdk 34
 
     dataBinding {
         enabled = true
