@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph_main"
-    app:startDestination="@id/loginFragment2">
+    app:startDestination="@id/searchFragment">
     <fragment
-        android:id="@+id/loginFragment2"
-        android:name="com.konkuk.nongboohae.presentation.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        android:id="@+id/searchFragment"
+        android:name="com.konkuk.nongboohae.presentation.main.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

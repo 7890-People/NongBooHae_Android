@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">NongBoohae</string>
+
+    <string-array name="plants_array">
+        <item>전체</item>
+        <item>사과</item>
+        <item>포도</item>
+        <item>가지</item>
+        <item>토마토</item>
+    </string-array>
 </resources>
