@@ -20,4 +20,8 @@
         <item name="android:fontFamily">@font/pretendard</item>
     </style>
 
+    <style name="PretendardSearchBarTextStyle" parent="TextAppearance.Material3.SearchBar">
+        <item name="android:textColorHint">@color/gray1</item>
+    </style>
+
 </resources>
