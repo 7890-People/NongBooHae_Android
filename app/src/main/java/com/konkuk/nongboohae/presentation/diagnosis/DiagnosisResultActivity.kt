@@ -5,6 +5,8 @@ import android.os.Bundle
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityDiagnosisResultBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
+import com.konkuk.nongboohae.presentation.login.LoginViewModel
+import com.konkuk.nongboohae.presentation.login.MemberRepository
 
 class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     override val TAG: String = "DiagnosisResultActivity"
