@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/cropImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/shape_rect_radius10"
+            android:backgroundTint="@color/blank"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/categoryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:gravity="start"
+            android:textColor="@color/green2"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/goBtn"
+            app:layout_constraintStart_toEndOf="@id/cropImg"
+            app:layout_constraintTop_toTopOf="@id/cropImg" />
+
+        <TextView
+            android:id="@+id/diseaseKr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:textColor="@color/darkgray"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/goBtn"
+            app:layout_constraintStart_toStartOf="@id/categoryText"
+            app:layout_constraintTop_toBottomOf="@id/categoryText" />
+
+        <TextView
+            android:id="@+id/diseaseEng"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/gray1"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/goBtn"
+            app:layout_constraintStart_toStartOf="@id/categoryText"
+            app:layout_constraintTop_toBottomOf="@id/diseaseKr"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <ImageButton
+            android:id="@+id/goBtn"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/img_next_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>
