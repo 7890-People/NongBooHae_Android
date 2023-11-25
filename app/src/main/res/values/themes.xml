@@ -2,22 +2,37 @@
     <!-- Base application theme. -->
     <style name="Theme.NongBoohae" parent="Theme.Material3.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimary">@color/green3</item>
+        <item name="colorPrimaryVariant">@color/green2</item>
+        <item name="colorOnPrimary">@color/background</item>
+
+        <item name="colorSurface">@color/background</item>
+        <item name="colorOnSurface">@color/gray1</item>
+
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondary">@color/green2</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/background</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 
+        <!--텍스트 폰트 변경-->
         <item name="android:buttonStyle">@style/PretendardButtonStyle</item>
         <item name="android:editTextStyle">@style/PretendardEditTextStyle</item>
         <item name="android:radioButtonStyle">@style/PretendardRadioButtonStyle</item>
         <item name="android:checkboxStyle">@style/PretendardCheckboxStyle</item>
         <item name="android:textViewStyle">@style/PretendardTextViewStyle</item>
+
+        <!--바텀 네비게이션 Material2 적용-->
+        <item name="bottomNavigationStyle">@style/Widget.MaterialComponents.BottomNavigationView
+        </item>
+        <item name="bottomAppBarStyle">@style/Widget.MaterialComponents.BottomAppBar.Colored</item>
+        <item name="floatingActionButtonStyle">
+            @style/Widget.MaterialComponents.FloatingActionButton
+        </item>
+
+
     </style>
 
     <!--BottomSheetDialog 배경 투명하게 하기 위함-->
