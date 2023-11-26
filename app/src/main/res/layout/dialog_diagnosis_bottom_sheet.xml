@@ -25,7 +25,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="40dp"
+        android:clickable="false">
 
         <!--작물1-->
         <androidx.cardview.widget.CardView
