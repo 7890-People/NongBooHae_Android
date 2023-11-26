@@ -17,7 +17,12 @@ class DiseaseInfoActivity : BaseActivity<ActivityDiseaseInfoBinding>() {
     }
 
     override fun afterViewCreated() {
-
+        initClickListener()
     }
 
+    private fun initClickListener() {
+        binding.diseaseInfoExitIv.setOnClickListener {
+            finish()
+        }
+    }
 }

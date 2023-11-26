@@ -1,5 +1,6 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.konkuk.nongboohae.R
@@ -18,6 +19,24 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     }
 
     override fun afterViewCreated() {
+        initClickListener()
+    }
 
+    private fun initClickListener() {
+        binding.diagnosisResultDis1Name.setOnClickListener {
+            val intent = Intent(this, DiseaseInfoActivity::class.java)
+            startActivity(intent)
+        }
+        binding.diagnosisResultDis2Name.setOnClickListener {
+            val intent = Intent(this, DiseaseInfoActivity::class.java)
+            startActivity(intent)
+        }
+        binding.diagnosisResultDis3Name.setOnClickListener {
+            val intent = Intent(this, DiseaseInfoActivity::class.java)
+            startActivity(intent)
+        }
+        binding.diagnosisResultExitIv.setOnClickListener {
+            finish()
+        }
     }
 }
