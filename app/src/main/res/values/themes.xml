@@ -34,4 +34,14 @@
 
 
     </style>
+
+    <!--BottomSheetDialog 배경 투명하게 하기 위함-->
+    <style name="TransParentBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/TransParentModalStyle</item>
+    </style>
+
+    <style name="TransParentModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
 </resources>
