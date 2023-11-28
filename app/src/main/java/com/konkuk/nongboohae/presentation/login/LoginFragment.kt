@@ -2,6 +2,7 @@ package com.konkuk.nongboohae.presentation.login
 
 import BaseFragment
 import android.util.Log
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -17,14 +18,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override val layoutRes: Int
         get() = R.layout.fragment_login
 
-    val viewModel: LoginViewModel by viewModels()
+    val viewModel: LoginViewModel by activityViewModels()
 
     override fun afterViewCreated() {
         binding.kakaoBtn.setOnClickListener {
             onKakaoBtnClicked()
 
-            //나중에 observe필드로 이동 예정
-//            onKakaoLoginSucceed()
         }
     }
 
@@ -40,9 +39,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
-            Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            Log.i(TAG, "카카오계정으로 로그인 성공")
             val pair = getUserInfo()
             viewModel.requestLogin(id = pair.first, email = pair.second)
+
+            //나중에 서버요청 observe필드로 이동 예정
+            onKakaoLoginSucceed()
         }
     }
 
@@ -83,9 +85,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
                 id = user.id.toString()
                 email = user.kakaoAccount?.email.toString()
+
+                Log.d(TAG, "111$id, $email")
             }
         }
-        showToast("카카오 로그인 성공 id: $id, email: $email")
+        Log.d(TAG, "222$id, $email")
         return Pair(id, email)
     }
 }
