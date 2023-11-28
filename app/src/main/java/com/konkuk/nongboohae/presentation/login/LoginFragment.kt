@@ -2,12 +2,14 @@ package com.konkuk.nongboohae.presentation.login
 
 import BaseFragment
 import android.util.Log
+import androidx.fragment.app.viewModels
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.FragmentLoginBinding
+import com.konkuk.nongboohae.presentation.main.MainActivity
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override val TAG: String
@@ -15,57 +17,75 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override val layoutRes: Int
         get() = R.layout.fragment_login
 
+    val viewModel: LoginViewModel by viewModels()
 
     override fun afterViewCreated() {
+        binding.kakaoBtn.setOnClickListener {
+            onKakaoBtnClicked()
 
-    }
-
-    private fun kakaoBtnClicked() {
-        loginToKakao()
-        loginToServer()
-    }
-
-    private fun loginToKakao() {
-        // 카카오계정으로 로그인 공통 callback 구성
-        // 카카오톡으로 로그인 할 수 없어 카카오계정으로 로그인할 경우 사용됨
-        val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
-            if (error != null) {
-                Log.e(TAG, "카카오계정으로 로그인 실패", error)
-            } else if (token != null) {
-                Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
-            }
+            //나중에 observe필드로 이동 예정
+//            onKakaoLoginSucceed()
         }
+    }
 
-        // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
+    private fun onKakaoLoginSucceed() {
+        //if(isRegistered)
+        startNextActivity(MainActivity::class.java)
+        //else
+        //회원가입
+    }
+
+
+    private val kakaoCallBack: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        if (error != null) {
+            Log.e(TAG, "카카오계정으로 로그인 실패", error)
+        } else if (token != null) {
+            Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            val pair = getUserInfo()
+            viewModel.requestLogin(id = pair.first, email = pair.second)
+        }
+    }
+
+
+    private fun onKakaoBtnClicked() {
         if (UserApiClient.instance.isKakaoTalkLoginAvailable(requireContext())) {
             UserApiClient.instance.loginWithKakaoTalk(requireContext()) { token, error ->
                 if (error != null) {
                     Log.e(TAG, "카카오톡으로 로그인 실패", error)
-
-                    // 사용자가 카카오톡 설치 후 디바이스 권한 요청 화면에서 로그인을 취소한 경우,
                     // 의도적인 로그인 취소로 보고 카카오계정으로 로그인 시도 없이 로그인 취소로 처리 (예: 뒤로 가기)
                     if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
                         return@loginWithKakaoTalk
                     }
-
                     // 카카오톡에 연결된 카카오계정이 없는 경우, 카카오계정으로 로그인 시도
                     UserApiClient.instance.loginWithKakaoAccount(
                         requireContext(),
-                        callback = callback
+                        callback = kakaoCallBack
                     )
                 } else if (token != null) {
-                    Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
-                    //TODO("로그인 성공 시 -> 회원정보 확인 후 서버 회원가입/로그인 진행 필요")
+                    Log.i(TAG, "카카오톡으로 로그인 성공")
+                    val pair = getUserInfo()
+                    viewModel.requestLogin(id = pair.first, email = pair.second)
                 }
             }
         } else {
-            UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = callback)
+            UserApiClient.instance.loginWithKakaoAccount(requireContext(), callback = kakaoCallBack)
         }
     }
 
-    private fun loginToServer() {
+    private fun getUserInfo(): Pair<String, String> {
+        //카카오 서버로부터 계정의 id와 email을 가져옴
+        var id = ""
+        var email = ""
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(TAG, "사용자 정보 요청 실패", error)
+            } else if (user != null) {
 
+                id = user.id.toString()
+                email = user.kakaoAccount?.email.toString()
+            }
+        }
+        showToast("카카오 로그인 성공 id: $id, email: $email")
+        return Pair(id, email)
     }
-
-
 }
