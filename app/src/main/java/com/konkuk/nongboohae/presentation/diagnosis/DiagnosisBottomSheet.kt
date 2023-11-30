@@ -127,10 +127,11 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == AppCompatActivity.RESULT_OK) {
-            Log.d("ImageURI", getPhotoURI.toString()) // 이미지 URI 획득!!
+            Log.d("photoUri", getPhotoURI.toString()) // 이미지 URI 획득!!
             // 서버통신 구현 필요
             // 모델로부터 값을 받아오면 진단 결과화면으로 전환
             val intent = Intent(requireActivity(), DiagnosisResultActivity::class.java)
+            intent.putExtra("photoUri", getPhotoURI.toString())
             startActivity(intent)
             dismiss()
         }

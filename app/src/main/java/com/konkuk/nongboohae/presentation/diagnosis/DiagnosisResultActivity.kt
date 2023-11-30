@@ -3,6 +3,7 @@ package com.konkuk.nongboohae.presentation.diagnosis
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityDiagnosisResultBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
@@ -19,6 +20,10 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     }
 
     override fun afterViewCreated() {
+        val photoUri = intent.getStringExtra("photoUri")
+        Glide.with(this)
+            .load(photoUri)
+            .into(binding.diagnosisResultPhotoIv)
         initClickListener()
     }
 
