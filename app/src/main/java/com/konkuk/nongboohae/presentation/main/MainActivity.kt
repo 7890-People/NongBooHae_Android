@@ -14,6 +14,10 @@ import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -25,6 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         searchViewModel = ViewModelProvider(
             this, ViewModelFactory(SearchRepository())
         )[SearchViewModel::class.java]
+        setBottomNavi()
     }
 
     override fun afterViewCreated() {
@@ -55,8 +60,36 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
     }
+    
     private fun setBackBtn() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
+    private fun setBottomNavi() {
+        binding.btnv.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.HistoryFragment -> {
+                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    Log.d("Stack-Log", "HistoryFragment()")
+                    return@setOnItemSelectedListener true
+                }
+                R.id.CommunityFragment -> {
+                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    Log.d("Stack-Log", "SearchFragment()")
+                    return@setOnItemSelectedListener true
+                }
+                R.id.SearchFragment -> {
+                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    Log.d("Stack-Log", "SearchFragment()")
+                    return@setOnItemSelectedListener true
+                }
+                R.id.MyPageFragment -> {
+                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    Log.d("Stack-Log", "SearchFragment()")
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
+    }
 }
