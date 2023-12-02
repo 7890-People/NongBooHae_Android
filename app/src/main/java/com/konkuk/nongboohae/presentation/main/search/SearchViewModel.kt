@@ -1,21 +1,23 @@
 package com.konkuk.nongboohae.presentation.main.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.konkuk.nongboohae.presentation.main.search.model.DiseaseListPresentModel
 import com.konkuk.nongboohae.remote.response.DiseaseListResponse
+import com.konkuk.nongboohae.util.SingleLiveData
 import com.konkuk.nongboohae.util.network.ApiState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.async
 
-class SearchViewModel(val repository: SearchRepository) : ViewModel() {
+class SearchViewModel(private val repository: SearchRepository) : ViewModel() {
 
-    val mDiseaseListResponse = MutableLiveData<ApiState<DiseaseListResponse>>()
-    val diseaseListResponse: LiveData<ApiState<DiseaseListResponse>> = mDiseaseListResponse
+    lateinit var entireList: List<DiseaseListPresentModel>
+    val diseaseListResponse = SingleLiveData<ApiState<DiseaseListResponse>>()
 
-    fun requestDiseaseList(category: String) = viewModelScope.launch(Dispatchers.IO) {
-        mDiseaseListResponse.postValue(repository.getDiseases(category))
+    fun requestDiseaseListAsync(category: String) = viewModelScope.async(Dispatchers.IO) {
+        val value = repository.getDiseases(category)
+        diseaseListResponse.postValue(value)
+        return@async value
     }
 
 }

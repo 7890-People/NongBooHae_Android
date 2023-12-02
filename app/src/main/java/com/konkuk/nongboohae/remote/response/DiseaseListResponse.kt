@@ -1,13 +1,7 @@
 package com.konkuk.nongboohae.remote.response
 
+import com.konkuk.nongboohae.presentation.main.search.model.DiseaseListPresentModel
+
 data class DiseaseListResponse(
     val diseases: List<DiseaseListPresentModel>
-)
-
-data class DiseaseListPresentModel(
-    val id: String,
-    val imgUrl: String?,
-    val korName: String,
-    val engName: String,
-    val category: String
 )
