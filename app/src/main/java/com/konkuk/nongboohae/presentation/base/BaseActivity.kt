@@ -32,11 +32,6 @@ abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         startActivity(intent)
     }
 
-    //뷰모델 생성 함수
-    inline fun <reified VM : ViewModel, R> createViewModel(repository: R): VM {
-        val viewModelFactory = ViewModelFactory(repository)
-        return ViewModelProvider(this, viewModelFactory)[VM::class.java]
-    }
 
     abstract fun initViewModel()
     abstract fun afterViewCreated()
