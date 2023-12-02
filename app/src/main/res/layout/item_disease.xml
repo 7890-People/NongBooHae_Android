@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="disease"
+            type="com.konkuk.nongboohae.presentation.main.search.model.DiseaseListPresentModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,6 +19,7 @@
             android:layout_marginStart="15dp"
             android:background="@drawable/shape_rect_radius10"
             android:backgroundTint="@color/blank"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:gravity="start"
+            android:text="@{disease.category}"
             android:textColor="@color/green2"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@id/goBtn"
@@ -35,6 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:text="@{disease.korName}"
             android:maxLines="1"
             android:textColor="@color/darkgray"
             android:textSize="15sp"
@@ -49,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="@color/gray1"
+            android:text="@{disease.engName}"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/goBtn"
