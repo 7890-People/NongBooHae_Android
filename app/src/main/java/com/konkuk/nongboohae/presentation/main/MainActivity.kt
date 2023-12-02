@@ -1,5 +1,6 @@
 package com.konkuk.nongboohae.presentation.main
 
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
@@ -9,12 +10,12 @@ import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityMainBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
+import com.konkuk.nongboohae.presentation.main.search.DiseaseListFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
 import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val TAG: String = "MainActivity"
@@ -25,6 +26,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         searchViewModel = ViewModelProvider(
             this, ViewModelFactory(SearchRepository())
         )[SearchViewModel::class.java]
+        setBottomNavi()
     }
 
     override fun afterViewCreated() {
@@ -55,8 +57,37 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
     }
+
     private fun setBackBtn() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
+
+    private fun setBottomNavi() {
+        binding.btnv.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.HistoryFragment -> {
+                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
+                    Log.d("Stack-Log", "HistoryFragment()")
+                    return@setOnItemSelectedListener true
+                }
+                R.id.CommunityFragment -> {
+                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
+                    Log.d("Stack-Log", "DiseaseListFragment()")
+                    return@setOnItemSelectedListener true
+                }
+                R.id.DiseaseListFragment -> {
+                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
+                    Log.d("Stack-Log", "DiseaseListFragment()")
+                    return@setOnItemSelectedListener true
+                }
+                R.id.MyPageFragment -> {
+                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
+                    Log.d("Stack-Log", "DiseaseListFragment()")
+                    return@setOnItemSelectedListener true
+                }
+            }
+            false
+        }
+    }
 }
