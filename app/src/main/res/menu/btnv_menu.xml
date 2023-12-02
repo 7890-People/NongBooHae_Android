@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/HistoryFragment"
         android:icon="@drawable/btnv_history"
         android:title="진단기록"
         android:enabled="true"
@@ -11,7 +11,7 @@
         />
 
     <item
-        android:id="@+id/Search"
+        android:id="@+id/CommunityFragment"
         android:icon="@drawable/btnv_community"
         android:title="커뮤니티"
         app:showAsAction="always"
@@ -23,14 +23,14 @@
         android:enabled="false"/>
 
     <item
-        android:id="@+id/Profile"
+        android:id="@+id/SearchFragment"
         android:icon="@drawable/btnv_search"
         app:showAsAction="always"
         android:title="정보검색"
         android:enabled="true" />
 
     <item
-        android:id="@+id/Settings"
+        android:id="@+id/MyPageFragment"
         android:icon="@drawable/btnv_mypage"
         app:showAsAction="always"
         android:title="마이페이지"
