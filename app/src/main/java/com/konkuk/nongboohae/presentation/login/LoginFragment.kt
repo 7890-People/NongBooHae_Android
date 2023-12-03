@@ -3,14 +3,14 @@ package com.konkuk.nongboohae.presentation.login
 import BaseFragment
 import android.util.Log
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.FragmentLoginBinding
-import com.konkuk.nongboohae.presentation.main.MainActivity
+import com.konkuk.nongboohae.util.Extensions.Companion.safeNavigate
 
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     override val TAG: String
@@ -29,7 +29,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun onKakaoLoginSucceed() {
         //if(isRegistered)
-        startNextActivity(MainActivity::class.java)
+        findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToJoinFragment1())
         //else
         //회원가입
     }
