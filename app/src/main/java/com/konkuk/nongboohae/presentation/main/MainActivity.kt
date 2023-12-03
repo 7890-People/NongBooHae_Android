@@ -1,5 +1,6 @@
 package com.konkuk.nongboohae.presentation.main
 
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
