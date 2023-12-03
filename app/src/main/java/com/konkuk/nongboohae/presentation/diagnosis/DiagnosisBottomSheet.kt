@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.DialogDiagnosisBottomSheetBinding
@@ -49,6 +50,9 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun afterBinding() {
+        Glide.with(requireActivity()).load("https://www.farmnmarket.com/data/photos/20220831/art_16598729535107_00d7c4.jpg").into(binding.diagnosisBottomSheetCrop1Iv)
+        Glide.with(requireActivity()).load("https://image.yes24.com/images/chyes24/d/1/c/1/d1c1ec15e22d9ed5b88a054464886774.jpg").into(binding.diagnosisBottomSheetCrop2Iv)
+        Glide.with(requireActivity()).load("https://www.amnews.co.kr/news/photo/202011/44247_31347_2423.jpg").into(binding.diagnosisBottomSheetCrop3Iv)
         binding.diagnosisBottomSheetCrop1Cv.setOnClickListener {
             requestCameraPermission()
         }

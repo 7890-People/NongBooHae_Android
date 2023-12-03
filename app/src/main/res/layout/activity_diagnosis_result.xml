@@ -153,7 +153,7 @@
                     android:id="@+id/diagnosis_result_dis2_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="갈색둥근무늬병"
+                    android:text="그을음점무늬병"
                     android:textSize="14sp"/>
 
                 <ImageView
@@ -174,7 +174,7 @@
                 app:layout_constraintTop_toTopOf="@id/diagnosis_result_dis2_name"
                 app:layout_constraintBottom_toBottomOf="@id/diagnosis_result_dis2_name"
                 android:layout_marginEnd="5dp"
-                android:text="78%"
+                android:text="21%"
                 android:textSize="14sp"/>
 
             <ProgressBar
@@ -213,7 +213,7 @@
                     android:id="@+id/diagnosis_result_dis3_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="갈색둥근무늬병"
+                    android:text="근두암종병"
                     android:textSize="14sp"/>
 
                 <ImageView
@@ -234,7 +234,7 @@
                 app:layout_constraintTop_toTopOf="@id/diagnosis_result_dis3_name"
                 app:layout_constraintBottom_toBottomOf="@id/diagnosis_result_dis3_name"
                 android:layout_marginEnd="5dp"
-                android:text="78%"
+                android:text="5%"
                 android:textSize="14sp"/>
 
             <ProgressBar
@@ -266,9 +266,9 @@
             app:cardCornerRadius="10dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="분석결과 갈색둥근무늬병이  78%로 가장 유력하게 나타났으며, 그 다음으로는 무슨 병, 그 다음으로는 무슨병으로 예측된다."
+                android:text="분석결과 갈색둥근무늬병이 78%로 가장 유력하게 나타났으며, 그 다음으로는 그을음점무늬병이 21%로 근접하며, 그 다음으로는 5%의 확률로 근두암종병으로 예측된다."
                 android:textSize="12sp"
                 android:layout_marginHorizontal="15dp"
                 android:layout_marginVertical="15dp"/>
