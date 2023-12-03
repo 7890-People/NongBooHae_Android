@@ -78,6 +78,7 @@
                         android:id="@+id/disease_info_photo_iv"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
                         android:src="@color/cardview_shadow_start_color" />
 
                 </androidx.cardview.widget.CardView>

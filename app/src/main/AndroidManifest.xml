@@ -41,12 +41,12 @@
             android:name=".presentation.login.LoginActivity"
             android:exported="true">
 
-             <intent-filter>
+<!--             <intent-filter>
              <action android:name="android.intent.action.MAIN" />
 
 
              <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+             </intent-filter>-->
         </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -65,14 +65,18 @@
         <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true">
-<!--            <intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".presentation.diagnosis.DiagnosisResultActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".presentation.diagnosis.DiagnosisImageFullScreenActivity"
             android:exported="false">
         </activity>
     </application>
