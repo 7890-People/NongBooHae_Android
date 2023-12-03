@@ -9,6 +9,9 @@ import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityMainBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
+
+import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
+import com.konkuk.nongboohae.presentation.main.search.SearchFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
 import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
@@ -69,7 +72,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.btnv.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.HistoryFragment -> {
-                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    setFragment(R.id.nav_host_fragment, HistoryFragment())
                     Log.d("Stack-Log", "HistoryFragment()")
                     return@setOnItemSelectedListener true
                 }
