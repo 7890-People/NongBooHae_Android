@@ -23,7 +23,7 @@
         android:enabled="false"/>
 
     <item
-        android:id="@+id/SearchFragment"
+        android:id="@+id/DiseaseListFragment"
         android:icon="@drawable/btnv_search"
         app:showAsAction="always"
         android:title="정보검색"

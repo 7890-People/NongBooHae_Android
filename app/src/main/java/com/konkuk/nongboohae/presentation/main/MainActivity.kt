@@ -10,7 +10,6 @@ import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityMainBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
-
 import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
 import com.konkuk.nongboohae.presentation.main.search.DiseaseListFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
@@ -18,10 +17,6 @@ import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -64,7 +59,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
     }
-    
+
     private fun setBackBtn() {
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
@@ -79,17 +74,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
                 R.id.CommunityFragment -> {
                     setFragment(R.id.nav_host_fragment, DiseaseListFragment())
-                    Log.d("Stack-Log", "SearchFragment()")
+                    Log.d("Stack-Log", "DiseaseListFragment()")
                     return@setOnItemSelectedListener true
                 }
-                R.id.SearchFragment -> {
+                R.id.DiseaseListFragment -> {
                     setFragment(R.id.nav_host_fragment, DiseaseListFragment())
-                    Log.d("Stack-Log", "SearchFragment()")
+                    Log.d("Stack-Log", "DiseaseListFragment()")
                     return@setOnItemSelectedListener true
                 }
                 R.id.MyPageFragment -> {
                     setFragment(R.id.nav_host_fragment, DiseaseListFragment())
-                    Log.d("Stack-Log", "SearchFragment()")
+                    Log.d("Stack-Log", "DiseaseListFragment()")
                     return@setOnItemSelectedListener true
                 }
             }
