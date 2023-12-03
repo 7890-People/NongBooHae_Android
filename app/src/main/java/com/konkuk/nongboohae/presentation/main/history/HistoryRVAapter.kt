@@ -1,6 +1,5 @@
 package com.konkuk.nongboohae.presentation.main.history
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
