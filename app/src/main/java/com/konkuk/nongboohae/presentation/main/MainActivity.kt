@@ -1,5 +1,6 @@
 package com.konkuk.nongboohae.presentation.main
 
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
@@ -11,7 +12,7 @@ import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
 
 import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
-import com.konkuk.nongboohae.presentation.main.search.SearchFragment
+import com.konkuk.nongboohae.presentation.main.search.DiseaseListFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
 import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
@@ -77,17 +78,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.CommunityFragment -> {
-                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
                     Log.d("Stack-Log", "SearchFragment()")
                     return@setOnItemSelectedListener true
                 }
                 R.id.SearchFragment -> {
-                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
                     Log.d("Stack-Log", "SearchFragment()")
                     return@setOnItemSelectedListener true
                 }
                 R.id.MyPageFragment -> {
-                    setFragment(R.id.nav_host_fragment, SearchFragment())
+                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
                     Log.d("Stack-Log", "SearchFragment()")
                     return@setOnItemSelectedListener true
                 }
