@@ -1,11 +1,10 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import com.konkuk.nongboohae.R
-import com.konkuk.nongboohae.databinding.ActivityDiagnosisResultBinding
 import com.konkuk.nongboohae.databinding.ActivityDiseaseInfoBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
+import com.konkuk.nongboohae.util.factory.ViewModelFactory
 
 class DiseaseInfoActivity : BaseActivity<ActivityDiseaseInfoBinding>() {
     override val TAG: String = "DiseaseInfoActivity"
@@ -13,7 +12,7 @@ class DiseaseInfoActivity : BaseActivity<ActivityDiseaseInfoBinding>() {
     lateinit var viewModel: DiseaseInfoViewModel
 
     override fun initViewModel() {
-        viewModel = createViewModel(DiseaseRepository())
+        viewModel = ViewModelProvider(this, ViewModelFactory(DiseaseRepository()))[DiseaseInfoViewModel::class.java]
     }
 
     override fun afterViewCreated() {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="disease"
+            type="com.konkuk.nongboohae.presentation.main.search.model.DiseaseListPresentModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/shape_oval"
+            android:backgroundTint="@color/lightgreen"
+            android:padding="15dp"
+            android:src="@drawable/img_list_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{disease.korName}"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/category"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img"
+            app:layout_constraintTop_toTopOf="@id/img" />
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{disease.category}"
+            android:textColor="#49454F"
+            app:layout_constraintBottom_toBottomOf="@id/img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/img"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
