@@ -1,5 +1,6 @@
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +8,11 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.konkuk.nongboohae.util.SingleLiveData
+import com.konkuk.nongboohae.util.network.ApiState
+import com.konkuk.nongboohae.util.network.ErrorResponse
 
-abstract class BaseFragment<T : ViewDataBinding>: Fragment() {
+abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
 
     private var _binding: T? = null
     protected val binding get() = _binding!!
@@ -48,6 +52,27 @@ abstract class BaseFragment<T : ViewDataBinding>: Fragment() {
         toast?.cancel()
         toast = Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT)
         toast?.show()
+    }
+
+    fun <D, R> SingleLiveData<ApiState<D>>.observeLiveData(
+        onSuccess: (D) -> (R?),
+        onFailure: (ErrorResponse) -> (Unit) = { Log.e(TAG, "Network error: $it") },
+        onLoading: () -> (Unit) = {}
+    ) {
+        this.observe(this@BaseFragment) { state ->
+            state.byState(
+                onSuccess = {
+                    val r = onSuccess(it)
+                    this.value = ApiState.Loading()
+                    r
+                },
+                onFailure = {
+                    onFailure(it)
+                    this.value = ApiState.Loading()
+                },
+                onLoading
+            )
+        }
     }
 
 }
