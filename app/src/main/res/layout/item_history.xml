@@ -21,16 +21,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <ImageView
-            android:id="@+id/history_item_cropImg"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/history_item_cropImg_cv"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginStart="15dp"
-            android:background="@drawable/shape_rect_radius10"
-            android:backgroundTint="@color/blank"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/history_item_line" />
+            app:layout_constraintTop_toBottomOf="@id/history_item_line"
+            app:cardCornerRadius="7dp">
+
+            <ImageView
+                android:id="@+id/history_item_cropImg"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:backgroundTint="@color/blank"
+                android:scaleType="fitXY"/>
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/history_item_categoryText"
@@ -41,30 +48,29 @@
             android:textColor="@color/green2"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@id/history_item_goBtn"
-            app:layout_constraintStart_toEndOf="@id/history_item_cropImg"
-            app:layout_constraintTop_toTopOf="@id/history_item_cropImg" />
+            app:layout_constraintStart_toEndOf="@id/history_item_cropImg_cv"
+            app:layout_constraintTop_toTopOf="@id/history_item_cropImg_cv" />
 
         <TextView
             android:id="@+id/history_item_diseaseKr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:maxLines="1"
             android:textColor="@color/darkgray"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/history_item_goBtn"
             app:layout_constraintStart_toStartOf="@id/history_item_categoryText"
-            app:layout_constraintTop_toBottomOf="@id/history_item_categoryText" />
+            app:layout_constraintTop_toBottomOf="@id/history_item_categoryText"
+            android:layout_marginTop="5dp"/>
 
         <TextView
-            android:id="@+id/history_item_diseaseEng"
+            android:id="@+id/history_item_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="@color/gray1"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/history_item_goBtn"
             app:layout_constraintStart_toStartOf="@id/history_item_categoryText"
             app:layout_constraintTop_toBottomOf="@id/history_item_diseaseKr" />

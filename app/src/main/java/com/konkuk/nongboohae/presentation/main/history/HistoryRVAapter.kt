@@ -5,12 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.konkuk.nongboohae.databinding.ItemHistoryBinding
 
 data class History(
-    var name: String = "",
-    var isExpanded: Boolean = false,
-    var image: Int = -1
+    var imgUrl: String = "",
+    var speciesName: String = "",
+    var date: String,
+    var disease1Name: String = "",
+    var disease1Percent: Int = 0,
+    var disease2Name: String = "",
+    var disease2Percent: Int = 0,
+    var isExpanded: Boolean = false
 )
 
 class HistoryRVAapter(private val historyList : ArrayList<History>): RecyclerView.Adapter<HistoryRVAapter.ViewHolder>() {
@@ -19,7 +25,18 @@ class HistoryRVAapter(private val historyList : ArrayList<History>): RecyclerVie
 
     class ViewHolder(val binding: ItemHistoryBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(history: History){
-            binding.historyItemDiseaseKr.text = history.name
+            binding.historyItemDiseaseKr.text = history.disease1Name
+            binding.historyItemDate.text = history.date
+            binding.historyItemCategoryText.text = history.speciesName
+            binding.historyItemDis1NameTv.text = history.disease1Name
+            binding.historyItemDis1PercentTv.text = history.disease1Percent.toString()+"%"
+            binding.historyItemDis2NameTv.text = history.disease2Name
+            binding.historyItemDis2PercentTv.text = history.disease2Percent.toString()+"%"
+            Glide.with(itemView.context).load(history.imgUrl).into(binding.historyItemPhotoIv)
+            Glide.with(itemView.context).load(history.imgUrl).into(binding.historyItemCropImg)
+            binding.historyItemDis1ProgressBar.progress = history.disease1Percent
+            binding.historyItemDis2ProgressBar.progress = history.disease2Percent
+
             binding.historyItemGoBtn.setOnClickListener {
                 Log.d("history", "더 보기 버튼 클릭됨")
                 ToggleAnimation.toggleArrow(it, !history.isExpanded)
@@ -42,7 +59,7 @@ class HistoryRVAapter(private val historyList : ArrayList<History>): RecyclerVie
         mItemClickListener = itemClickListener
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): HistoryRVAapter.ViewHolder {
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val binding: ItemHistoryBinding = ItemHistoryBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(binding)
     }

@@ -19,11 +19,10 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
     }
 
     private fun initRVAdapert() {
-        histories.add(History("~~병",false, 0))
-        histories.add(History("병1",false, 0))
-        histories.add(History("병2",false, 0))
-        histories.add(History("병3",false, 0))
-        histories.add(History("병4",false, 0))
+        histories.add(History("https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3013_0120161027094643027_TMB.jpg","포도", "2023-12-01","갈색무늬병", 78, "그을음점무늬병",17))
+        histories.add(History("https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3005_0120161027100845296_TMB.jpg","포도", "2023-12-02","꼭지마름병", 81, "그을음점무늬병",21))
+        histories.add(History("https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3016_0120161027095733733_TMB.jpg","포도", "2023-12-02","그을음점무늬병", 65, "갈색무늬병",20))
+        histories.add(History("https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3002_0120161027104815284_TMB.jpg","포도", "2023-12-03","먼지곰팡이병", 78, "흰가루병",27))
         val historyRVAapter = HistoryRVAapter(histories)
         historyRVAapter.setMyItemClickListener(object : HistoryRVAapter.MyItemClickListener{
             override fun onGoBtnClick(history: History) {
