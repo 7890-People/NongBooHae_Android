@@ -37,9 +37,9 @@ class HistoryRVAapter(private val historyList : ArrayList<History>): RecyclerVie
             binding.historyItemDis1ProgressBar.progress = history.disease1Percent
             binding.historyItemDis2ProgressBar.progress = history.disease2Percent
 
-            binding.historyItemGoBtn.setOnClickListener {
+            itemView.setOnClickListener {
                 Log.d("history", "더 보기 버튼 클릭됨")
-                ToggleAnimation.toggleArrow(it, !history.isExpanded)
+                ToggleAnimation.toggleArrow(binding.historyItemGoBtn, !history.isExpanded)
                 if (!history.isExpanded) {
                     ToggleAnimation.expand(binding.historyItemHiddenLayout)
                     history.isExpanded = true
