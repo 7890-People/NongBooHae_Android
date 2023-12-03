@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="@color/white"
+        android:clickable="false">
+        
+        <View
+            android:id="@+id/history_item_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:backgroundTint="@color/gray7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/history_item_cropImg"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/shape_rect_radius10"
+            android:backgroundTint="@color/blank"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/history_item_line" />
+
+        <TextView
+            android:id="@+id/history_item_categoryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:gravity="start"
+            android:textColor="@color/green2"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/history_item_goBtn"
+            app:layout_constraintStart_toEndOf="@id/history_item_cropImg"
+            app:layout_constraintTop_toTopOf="@id/history_item_cropImg" />
+
+        <TextView
+            android:id="@+id/history_item_diseaseKr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:textColor="@color/darkgray"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/history_item_goBtn"
+            app:layout_constraintStart_toStartOf="@id/history_item_categoryText"
+            app:layout_constraintTop_toBottomOf="@id/history_item_categoryText" />
+
+        <TextView
+            android:id="@+id/history_item_diseaseEng"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/gray1"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/history_item_goBtn"
+            app:layout_constraintStart_toStartOf="@id/history_item_categoryText"
+            app:layout_constraintTop_toBottomOf="@id/history_item_diseaseKr" />
+
+        <ImageView
+            android:id="@+id/history_item_goBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:padding="20dp"
+            android:src="@drawable/img_next_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/history_item_hidden_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <View
+            android:id="@+id/history_item_line2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:backgroundTint="@color/gray7"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/history_item_photo_cv"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            app:layout_constraintTop_toBottomOf="@id/history_item_line2"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            >
+
+            <ImageView
+                android:id="@+id/history_item_photo_iv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@color/cardview_shadow_start_color" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/history_item_dis1_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            app:layout_constraintTop_toBottomOf="@id/history_item_photo_cv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="30dp">
+
+            <LinearLayout
+                android:id="@+id/history_item_dis1_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/history_item_dis1_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="갈색둥근무늬병"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:id="@+id/history_item_dis1_arrow_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_right_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/history_item_dis1_percent_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/history_item_dis1_name"
+                app:layout_constraintBottom_toBottomOf="@id/history_item_dis1_name"
+                android:layout_marginEnd="5dp"
+                android:text="78%"
+                android:textSize="16sp"/>
+
+            <ProgressBar
+                android:id="@+id/history_item_dis1_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/history_item_dis1_name"
+                android:layout_marginTop="10dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                tools:progress="60"
+                android:progressDrawable="@drawable/round_green_progress_bar"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/history_item_dis2_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            app:layout_constraintTop_toBottomOf="@id/history_item_dis1_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:id="@+id/history_item_dis2_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/history_item_dis2_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="갈색둥근무늬병"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/history_item_dis2_arrow_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_right_arrow"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/history_item_dis2_percent_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/history_item_dis2_name"
+                app:layout_constraintBottom_toBottomOf="@id/history_item_dis2_name"
+                android:layout_marginEnd="5dp"
+                android:text="78%"
+                android:textSize="14sp"/>
+
+            <ProgressBar
+                android:id="@+id/history_item_dis2_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/history_item_dis2_name"
+                android:layout_marginTop="10dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                tools:progress="60"
+                android:progressDrawable="@drawable/round_green_progress_bar"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
