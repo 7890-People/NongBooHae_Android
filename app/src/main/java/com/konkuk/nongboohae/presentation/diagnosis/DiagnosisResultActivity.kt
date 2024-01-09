@@ -31,28 +31,13 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
         Glide.with(this)
             .load(photoUri)
             .into(binding.diagnosisResultPhotoIv)
-        binding.diagnosisResultDis1ProgressBar.progress = 78
-        binding.diagnosisResultDis2ProgressBar.progress = 21
-        binding.diagnosisResultDis3ProgressBar.progress = 5
     }
 
     private fun initClickListener() {
-        binding.diagnosisResultDis1Name.setOnClickListener {
+        binding.diagnosisResultDiseaseMoreIv.setOnClickListener {
             val intent = Intent(this, DiseaseInfoActivity::class.java)
-            intent.putExtra("diseaseName", binding.diagnosisResultDis1NameTv.text)
+            intent.putExtra("diseaseName", binding.diagnosisResultDiseaseTv.text)
             intent.putExtra("imgUrl", "https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3013_0120161027094643027_TMB.jpg")
-            startActivity(intent)
-        }
-        binding.diagnosisResultDis2Name.setOnClickListener {
-            val intent = Intent(this, DiseaseInfoActivity::class.java)
-            intent.putExtra("diseaseName", binding.diagnosisResultDis2NameTv.text)
-            intent.putExtra("imgUrl", "https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3016_0120161027095733733_TMB.jpg")
-            startActivity(intent)
-        }
-        binding.diagnosisResultDis3Name.setOnClickListener {
-            val intent = Intent(this, DiseaseInfoActivity::class.java)
-            intent.putExtra("diseaseName", binding.diagnosisResultDis3NameTv.text)
-            intent.putExtra("imgUrl", "")
             startActivity(intent)
         }
         binding.diagnosisResultExitIv.setOnClickListener {
