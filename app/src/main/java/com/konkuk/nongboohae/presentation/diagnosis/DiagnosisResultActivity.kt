@@ -17,7 +17,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     override fun initViewModel() {
         viewModel = ViewModelProvider(
             this,
-            ViewModelFactory(DiagnosisRepository())
+            ViewModelFactory(DiagnosisResultRepository())
         )[DiagnosisResultViewModel::class.java]
     }
 
