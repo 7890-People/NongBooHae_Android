@@ -3,7 +3,6 @@ package com.konkuk.nongboohae.presentation.login
 import BaseFragment
 import android.util.Log
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -29,7 +28,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private fun onKakaoLoginSucceed() {
         //if(isRegistered)
-        findNavController().safeNavigate(LoginFragmentDirections.actionLoginFragmentToJoinFragment1())
+        viewModel.goto(LoginPage.JOIN1)
         //else
         //회원가입
     }
@@ -82,10 +81,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             if (error != null) {
                 Log.e(TAG, "사용자 정보 요청 실패", error)
             } else if (user != null) {
-
                 id = user.id.toString()
                 email = user.kakaoAccount?.email.toString()
-
                 Log.d(TAG, "111$id, $email")
             }
         }

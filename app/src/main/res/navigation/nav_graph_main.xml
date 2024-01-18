@@ -7,6 +7,6 @@
 
     <fragment
         android:id="@+id/diseaseListFragment"
-        android:name="com.konkuk.nongboohae.presentation.main.search.DiseaseListFragment"
+        android:name="com.konkuk.nongboohae.presentation.main.search.SearchFragment"
         android:label="DiseaseListFragment" />
 </navigation>
