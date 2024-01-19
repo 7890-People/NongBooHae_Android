@@ -32,7 +32,15 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
 
     override fun afterViewCreated() {
         initData()
+        initObservers()
         initClickListener()
+    }
+
+    private fun initObservers() {
+        viewModel.diagnosisResultResponse.observe(this){
+            binding.diagnosisResultDiseaseTv.text = it.diseaseName
+            // ..... 이런식으로 하는 거 맞나요?
+        }
     }
 
     private fun initData() {
@@ -42,7 +50,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
             .load(photoUri)
             .into(binding.diagnosisResultPhotoIv)
         viewModel.requestDiagnosisResult(photoUri = photoUri, plantName = plantName)
-    }w
+    }
 
     private fun initClickListener() {
         binding.diagnosisResultDiseaseMoreIv.setOnClickListener {
