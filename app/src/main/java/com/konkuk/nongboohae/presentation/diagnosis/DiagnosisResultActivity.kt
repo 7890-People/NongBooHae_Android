@@ -21,6 +21,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     override val layoutRes: Int = R.layout.activity_diagnosis_result
     lateinit var viewModel: DiagnosisResultViewModel
     lateinit var photoUri : String
+    lateinit var plantName: String
 
     override fun initViewModel() {
         viewModel = ViewModelProvider(
@@ -36,22 +37,12 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
 
     private fun initData() {
         photoUri = intent.getStringExtra("photoUri").toString()
-        val file = File(photoUri.toString())
-        val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-        val plantImg = MultipartBody.Part.createFormData("plantImg", file.name, requestFile) //폼데이터
-        val plantName: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), "포도")
+        plantName = "포도"
         Glide.with(this)
             .load(photoUri)
             .into(binding.diagnosisResultPhotoIv)
-
-        val job = viewModel.requestDiagnosisResultAsync(plantImg = plantImg, plantName = plantName)
-        lifecycleScope.launch(Dispatchers.IO) {
-            //처음 한번 기다리고 viewModel에 저장
-            job.await().byState(
-                onSuccess = { viewModel.diagnosisResultResponse = it }
-            )
-        }
-    }
+        viewModel.requestDiagnosisResult(photoUri = photoUri, plantName = plantName)
+    }w
 
     private fun initClickListener() {
         binding.diagnosisResultDiseaseMoreIv.setOnClickListener {
