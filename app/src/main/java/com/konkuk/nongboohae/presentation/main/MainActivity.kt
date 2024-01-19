@@ -4,14 +4,19 @@ import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.konkuk.mocacong.presentation.main.MainViewModel
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityMainBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
 import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
-import com.konkuk.nongboohae.presentation.main.search.DiseaseListFragment
+import com.konkuk.nongboohae.presentation.main.search.SearchFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
 import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
@@ -23,21 +28,60 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override val TAG: String = "MainActivity"
     override val layoutRes: Int = R.layout.activity_main
     lateinit var searchViewModel: SearchViewModel
+    lateinit var mainViewModel: MainViewModel
+
+    private val searchFragment by lazy {
+        supportFragmentManager.findFragmentByTag(SearchFragment::class.java.name) ?: SearchFragment()
+    }
+
+    private val historyFragment by lazy {
+        supportFragmentManager.findFragmentByTag(HistoryFragment::class.java.name) ?: HistoryFragment()
+    }
 
     override fun initViewModel() {
         searchViewModel = ViewModelProvider(
             this, ViewModelFactory(SearchRepository())
         )[SearchViewModel::class.java]
-        setBottomNavi()
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
     }
 
     override fun afterViewCreated() {
+        collectPage()
         binding.fab.setOnClickListener {
             val modal = DiagnosisBottomSheet()
             modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransParentBottomSheetDialogTheme)
             modal.show(supportFragmentManager, DiagnosisBottomSheet.TAG)
         }
+        setBottomNavi()
         setBackBtn()
+    }
+
+    private fun getFragment(page: MainPage): Fragment {
+        return when (page) {
+            MainPage.SEARCH -> searchFragment
+            MainPage.HISTORY -> historyFragment
+        }
+    }
+
+    private fun collectPage() {
+        Log.d(TAG, "collectPage 시작")
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                var prevPage = mainViewModel.pageFlow.value
+                mainViewModel.pageFlow.collect { page ->
+                    Log.d(TAG, " $page collect됨")
+                    val preFragment = getFragment(prevPage)
+                    val fragment = getFragment(page)
+                    supportFragmentManager.commit {
+                        if (preFragment != fragment) hide(preFragment)
+                        if (fragment.isAdded) {
+                            show(fragment)
+                        } else add(R.id.mainFragmentContainer, fragment, fragment.javaClass.name)
+                    }
+                    prevPage = page
+                }
+            }
+        }
     }
 
     fun setBtnvVisibility(visibility: Boolean) {
@@ -67,28 +111,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun setBottomNavi() {
         binding.btnv.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.HistoryFragment -> {
-                    setFragment(R.id.nav_host_fragment, HistoryFragment())
-                    Log.d("Stack-Log", "HistoryFragment()")
-                    return@setOnItemSelectedListener true
+                R.id.btnv_history -> {
+                    mainViewModel.gotoPage(MainPage.HISTORY)
                 }
-                R.id.CommunityFragment -> {
-                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
-                    Log.d("Stack-Log", "DiseaseListFragment()")
-                    return@setOnItemSelectedListener true
+                R.id.btnv_community -> {
+
                 }
-                R.id.DiseaseListFragment -> {
-                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
-                    Log.d("Stack-Log", "DiseaseListFragment()")
-                    return@setOnItemSelectedListener true
+                R.id.btnv_search -> {
+                    mainViewModel.gotoPage(MainPage.SEARCH)
                 }
-                R.id.MyPageFragment -> {
-                    setFragment(R.id.nav_host_fragment, DiseaseListFragment())
-                    Log.d("Stack-Log", "DiseaseListFragment()")
-                    return@setOnItemSelectedListener true
+                R.id.btnv_mypage -> {
+
                 }
             }
-            false
+            return@setOnItemSelectedListener true
         }
     }
 }

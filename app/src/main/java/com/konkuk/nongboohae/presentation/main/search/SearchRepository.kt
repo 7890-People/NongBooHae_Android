@@ -2,10 +2,8 @@ package com.konkuk.nongboohae.presentation.main.search
 
 import com.konkuk.nongboohae.presentation.base.BaseRepository
 import com.konkuk.nongboohae.presentation.main.search.model.DiseaseListPresentModel
-import com.konkuk.nongboohae.remote.api.DiseasesApi
 import com.konkuk.nongboohae.remote.response.DiseaseListResponse
 import com.konkuk.nongboohae.util.network.ApiState
-import com.konkuk.nongboohae.util.network.RetrofitClient
 import kotlinx.coroutines.delay
 
 class SearchRepository : BaseRepository() {
@@ -16,29 +14,27 @@ class SearchRepository : BaseRepository() {
 //        makeRequest { api.getDiseases(category = category) }
 
     suspend fun getDiseases(category: String): ApiState<DiseaseListResponse> {
-        delay(1000)
-
         return ApiState.Success(
             data = DiseaseListResponse(
                 listOf(
                     DiseaseListPresentModel(
                         id = "1",
-                        imgUrl = "https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3013_0120161027094643027_TMB.jpg",
+                        imgUrl = null,
                         korName = "갈색 무늬병",
                         engName = "Leaf spot",
                         category = "포도"
                     ),
                     DiseaseListPresentModel(
                         id = "2",
-                        imgUrl = "https://www.nongsaro.go.kr/portal/ps/pss/pssa/photoSearchLst.ps?menuId=PS00202&sKidofcomdtyTabCode=FT&sKidofcomdtyCode=FT040603&hlsctCode=&sicknsCode=&nnmyInsectCode=#",
-                        korName = "그을음점무늬병",
+
+                        imgUrl = null, korName = "그을음점무늬병",
                         engName = "Fly speak",
                         category = "포도"
                     ),
                     DiseaseListPresentModel(
                         id = "3",
-                        imgUrl = null,
-                        korName = "근두암종병",
+
+                        imgUrl = null, korName = "근두암종병",
                         engName = "Crown gall",
                         category = "포도"
                     ),
