@@ -6,19 +6,16 @@ import android.text.Editable
 import android.text.TextWatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.search.SearchView
 import com.konkuk.nongboohae.R
-import com.konkuk.nongboohae.databinding.FragmentDiseaseListBinding
+import com.konkuk.nongboohae.databinding.FragmentSearchBinding
 import com.konkuk.nongboohae.presentation.main.MainActivity
 import com.konkuk.nongboohae.presentation.main.search.model.DiseaseListPresentModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class DiseaseListFragment : BaseFragment<FragmentDiseaseListBinding>() {
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val TAG: String = "DiseaseListFragment"
-    override val layoutRes: Int = R.layout.fragment_disease_list
+    override val layoutRes: Int = R.layout.fragment_search
     val viewModel: SearchViewModel by activityViewModels()
 
     lateinit var diseaseListItemAdapter: DiseaseListItemAdapter
@@ -48,32 +45,18 @@ class DiseaseListFragment : BaseFragment<FragmentDiseaseListBinding>() {
         binding.searchedRecyclerView.adapter = searchItemAdapter
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun initObservers() {
-        viewModel.diseaseListResponse.observeLiveData(
-            onSuccess = {
-                diseaseListItemAdapter.diseaseList = it.diseases
-                diseaseListItemAdapter.notifyDataSetChanged()
+        viewModel.diseaseList.observe(this) {
+            diseaseListItemAdapter.diseaseList = it
+            diseaseListItemAdapter.notifyDataSetChanged()
 
-                searchItemAdapter.diseaseList = it.diseases
-                searchItemAdapter.notifyDataSetChanged()
-            },
-            onFailure = {
-                showToast("데이터 로딩 실패")
-                //TODO: 다시 요청
-
-            }
-        )
+            searchItemAdapter.diseaseList = it
+            searchItemAdapter.notifyDataSetChanged()
+        }
     }
 
     private fun initData() {
-        val job = viewModel.requestDiseaseListAsync(category = "all")
-        lifecycleScope.launch(Dispatchers.IO) {
-            //처음 한번 기다리고 viewModel에 저장
-            job.await().byState(
-                onSuccess = { viewModel.entireList = it.diseases }
-            )
-        }
+        viewModel.requestDiseaseList(category = "all")
     }
 
 

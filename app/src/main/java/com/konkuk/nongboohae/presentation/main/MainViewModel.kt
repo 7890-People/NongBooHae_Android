@@ -1,22 +1,21 @@
-package com.konkuk.nongboohae.presentation.login
+package com.konkuk.mocacong.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.konkuk.nongboohae.presentation.main.MainPage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class LoginViewModel(val memberRepository: MemberRepository) : ViewModel() {
-    fun requestLogin(id: String, email: String) {
 
-    }
+class MainViewModel() : ViewModel() {
 
-    private val _pageFlow = MutableStateFlow(LoginPage.LOGIN)
+    private val _pageFlow = MutableStateFlow(MainPage.HISTORY)
     val pageFlow = _pageFlow
-        .stateIn(viewModelScope, SharingStarted.Eagerly, LoginPage.LOGIN)
+        .stateIn(viewModelScope, SharingStarted.Eagerly, MainPage.HISTORY)
 
-    fun goto(page: LoginPage) {
+    fun gotoPage(page: MainPage) {
         viewModelScope.launch {
             _pageFlow.emit(page)
         }
