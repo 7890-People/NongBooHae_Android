@@ -1,26 +1,62 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
 import android.Manifest
+import android.content.ContentValues
 import android.content.pm.PackageManager
 import android.os.Build
+import android.provider.MediaStore
+import android.util.Log
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.view.LifecycleCameraController
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityCameraBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
-import java.util.concurrent.ExecutorService
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CameraActivity : BaseActivity<ActivityCameraBinding>() {
     override val TAG: String = "CameraActivity"
     override val layoutRes: Int = R.layout.activity_camera
 
-    private var imageCapture: ImageCapture? = null
-    private lateinit var cameraExecutor: ExecutorService
+    companion object {
+        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
+        private const val REQUEST_CODE_PERMISSIONS = 10
+        private val REQUIRED_PERMISSIONS =
+            mutableListOf(
+                Manifest.permission.CAMERA
+            ).apply {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                }
+            }.toTypedArray()
+    }
+
+    private lateinit var cameraController: LifecycleCameraController
+
+    private lateinit var cameraAnimationListener: Animation.AnimationListener
+    private fun setCameraAnimationListener() {
+        cameraAnimationListener = object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.shutterLayout.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+        }
+    }
 
     override fun initViewModel() {
 
@@ -28,15 +64,14 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>() {
 
     override fun afterViewCreated() {
         requestPermission()
+        binding.headerLayout.title = "AI 진단하기"
+        setCameraAnimationListener()
+
         binding.captureBtn.setOnClickListener {
             takePhoto()
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cameraExecutor.shutdown()
-    }
 
     private fun requestPermission() {
         if (allPermissionsGranted()) {
@@ -73,60 +108,64 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>() {
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    companion object {
-        private const val TAG = "CameraXApp"
-        private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-        private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS =
-            mutableListOf(
-                Manifest.permission.CAMERA
-            ).apply {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
-                    add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                }
-            }.toTypedArray()
-    }
-
     private fun startCamera() {
-        //ProcessCameraProvider 인스턴스 생성. 카메라의 수명 주기를 액티비티와 바인딩하므로 카메라를 열고 닫는 작업이 필요없어짐
-        val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-
-        //future에 리스너 추가
-        cameraProviderFuture.addListener(
-            //인자1: Runnable
-            {
-                val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
-                //preview객체 초기화, build 호출, binding의 previewView에서 노출 영역 제공자를 받아 미리보기에 설정
-                val preview = Preview.Builder()
-                    .build()
-                    .also {
-                        it.setSurfaceProvider(binding.previewView.surfaceProvider)
-                    }
-
-                // 후면 카메라를 디폴트로 설정
-                val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-                try {
-                    // rebinding 전에 바인딩된 객체 초기화
-                    cameraProvider.unbindAll()
-
-                    // selector와 미리보기 객체를 provider에 바인딩함
-                    cameraProvider.bindToLifecycle(
-                        this, cameraSelector, preview
-                    )
-
-                } catch (exc: Exception) {
-                    //앱에 포커스가 없는 경우와 같은 케이스스                    Log.e(TAG, "Use case binding failed", exc)
-                }
-
-            }
-            //인자2: ContextCompat.getMainExecutor >> 기본 스레드에서 실행되는 Executor 반환됨
-            , ContextCompat.getMainExecutor(this)
-        )
+        cameraController = LifecycleCameraController(baseContext)
+        cameraController.bindToLifecycle(this)
+        cameraController.cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+        binding.previewView.controller = cameraController
     }
 
     private fun takePhoto() {
+        // Create time stamped name and MediaStore entry.
+        val name = SimpleDateFormat(FILENAME_FORMAT, Locale.KOREA)
+            .format(System.currentTimeMillis())
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                put(MediaStore.Images.Media.RELATIVE_PATH, "Pictures/농부해")
+            }
+        }
 
+        // Create output options object which contains file + metadata
+        val outputOptions = ImageCapture.OutputFileOptions
+            .Builder(
+                contentResolver,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                contentValues
+            )
+            .build()
+
+        // Set up image capture listener, which is triggered after photo has
+        // been taken
+        loadShutterAnim()
+        cameraController.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onError(exc: ImageCaptureException) {
+                    Toast.makeText(baseContext, "사진 저장에 실패했습니다. 다시 시도해주세요", Toast.LENGTH_SHORT)
+                        .show()
+                    Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                }
+
+                override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    val msg = "Photo capture succeeded: ${output.savedUri}"
+                    Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, msg)
+                }
+            }
+        )
+    }
+
+    private fun loadShutterAnim() {
+        val animation =
+            AnimationUtils.loadAnimation(this@CameraActivity, R.anim.anim_shutter)
+        animation.setAnimationListener(cameraAnimationListener)
+        binding.shutterLayout.apply {
+            this.animation = animation
+            visibility = View.VISIBLE
+            startAnimation(animation)
+        }
     }
 }
