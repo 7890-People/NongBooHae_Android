@@ -95,7 +95,7 @@
                     android:id="@+id/diagnosis_result_disease_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="갈색둥근무늬병"
+                    android:text=" "
                     android:textColor="@color/darkgray"
                     android:textSize="20sp"
                     android:textStyle="bold"

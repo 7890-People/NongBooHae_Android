@@ -12,5 +12,8 @@ class DiagnosisResultRepository :BaseRepository() {
     private val api = RetrofitClient.create(DiagnosisResultApi::class.java)
 
     suspend fun postDiagnosis(plantImg: MultipartBody.Part, plantName: RequestBody): ApiState<DiagnosisResultResponse> =
-        makeRequest { api.postDiagnosis(plantImg = plantImg, plantName = plantName) }
+        makeRequest { api.postDiagnosis(img = plantImg, plantName = plantName) }
+
+/*    suspend fun postDiagnosis(diagnosisResultRequest: DiagnosisResultRequest): ApiState<DiagnosisResultResponse> =
+        makeRequest { api.postDiagnosis(diagnosisResultRequest) }*/
 }

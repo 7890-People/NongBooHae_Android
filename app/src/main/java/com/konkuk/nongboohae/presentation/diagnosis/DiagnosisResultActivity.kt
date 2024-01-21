@@ -1,26 +1,23 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
 import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
+import android.util.Log
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityDiagnosisResultBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.invoke
-import kotlinx.coroutines.launch
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
 
 class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     override val TAG: String = "DiagnosisResultActivity"
     override val layoutRes: Int = R.layout.activity_diagnosis_result
     lateinit var viewModel: DiagnosisResultViewModel
-    lateinit var photoUri : String
+    lateinit var photoUri : Uri
     lateinit var plantName: String
 
     override fun initViewModel() {
@@ -44,12 +41,13 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     }
 
     private fun initData() {
-        photoUri = intent.getStringExtra("photoUri").toString()
+        photoUri = intent.getStringExtra("photoUri")!!.toUri()
+        val filePath = intent.getStringExtra("currentPhotoPath")
         plantName = "포도"
         Glide.with(this)
             .load(photoUri)
             .into(binding.diagnosisResultPhotoIv)
-        viewModel.requestDiagnosisResult(photoUri = photoUri, plantName = plantName)
+        viewModel.requestDiagnosisResult(filePath = filePath, plantName = plantName)
     }
 
     private fun initClickListener() {
