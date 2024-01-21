@@ -15,19 +15,21 @@ abstract class BaseRepository {
                 Log.d("Network", "API Succeed Response: $response")
                 ApiState.Success(response.body())
             } else {
-                val errorResponse = getErrorResponse(response.errorBody()!!)
-                Log.e("Network", "API Error Response: $errorResponse")
-                ApiState.Error(errorResponse = errorResponse!!)
+                //val errorResponse = getErrorResponse(response.errorBody()!!)
+                //Log.e("Network", "API Error Response: $errorResponse")
+                //ApiState.Error(errorResponse = errorResponse!!)
+                ApiState.Error(null)
             }
         } catch (e: Exception) {
             e.printStackTrace()
-            ApiState.Error(errorResponse = ErrorResponse(message = e.message ?: "Unknown Error", code = 1234))
+            //ApiState.Error(errorResponse = ErrorResponse(message = e.message ?: "Unknown Error", code = 1234))
+            ApiState.Error(null)
         }
     }
 
-    private fun getErrorResponse(errorBody: ResponseBody): ErrorResponse? {
-        return RetrofitClient.retrofit.responseBodyConverter<ErrorResponse>(
-            ErrorResponse::class.java, ErrorResponse::class.java.annotations
-        ).convert(errorBody)
-    }
+//    private fun getErrorResponse(errorBody: ResponseBody): ErrorResponse? {
+//        return RetrofitClient.retrofit.responseBodyConverter<ErrorResponse>(
+//            ErrorResponse::class.java, ErrorResponse::class.java.annotations
+//        ).convert(errorBody)
+//    }
 }

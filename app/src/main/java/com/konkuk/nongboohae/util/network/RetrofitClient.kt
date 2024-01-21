@@ -12,13 +12,13 @@ import java.util.concurrent.TimeUnit
 
 
 object RetrofitClient {
-    private const val BASE_URL = "도메인"
+    private const val BASE_URL = "http://112.152.7.20:26900"
 
     //interceptor 생성
     private val interceptorClient = OkHttpClient().newBuilder()
-        .connectTimeout(5, TimeUnit.SECONDS)
+/*        .connectTimeout(5, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(15, TimeUnit.SECONDS)
+        .writeTimeout(15, TimeUnit.SECONDS)*/
         .addInterceptor(ResponseInterceptor())
         .build()
 
@@ -49,10 +49,12 @@ class ResponseInterceptor : Interceptor {
 
         return if (response.isSuccessful) response
         else {
-            val errorJson = JSONObject(response.peekBody(2048).string())
+            /*val errorJson = JSONObject(response.peekBody(2048).string())
             val code = errorJson.getInt("code")
             val message = errorJson.getString("message")
-            Log.d("interceptor", "Network Error 발생! code = $code, message = $message")
+            Log.d("interceptor", "Network Error 발생! code = $code, message = $message")*/
+            val errorbody = response.peekBody(2048).string()
+            Log.d("interceptor", "Network Error 발생! body: $errorbody")
 
             response
         }

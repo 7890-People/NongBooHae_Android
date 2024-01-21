@@ -136,6 +136,7 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
             // 모델로부터 값을 받아오면 진단 결과화면으로 전환
             val intent = Intent(requireActivity(), DiagnosisResultActivity::class.java)
             intent.putExtra("photoUri", getPhotoURI.toString())
+            intent.putExtra("currentPhotoPath", currentPhotoPath.toString())
             startActivity(intent)
             dismiss()
         }
