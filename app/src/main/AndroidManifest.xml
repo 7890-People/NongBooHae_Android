@@ -22,8 +22,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.NongBoohae"
-        tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
         <activity
             android:name=".presentation.diagnosis.DiseaseInfoActivity"
             android:exported="false" />
@@ -41,13 +41,13 @@
         <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="true">
-<!--
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
+            <!--
+                         <intent-filter>
+                         <action android:name="android.intent.action.MAIN" />
 
 
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
+                         <category android:name="android.intent.category.LAUNCHER" />
+                         </intent-filter>-->
         </activity>
         <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
@@ -74,12 +74,13 @@
         </activity>
         <activity
             android:name=".presentation.diagnosis.DiagnosisResultActivity"
-            android:exported="false">
-        </activity>
+            android:exported="true" />
+        <activity
+            android:name=".presentation.diagnosis.CameraActivity"
+            android:exported="true" />
         <activity
             android:name=".presentation.diagnosis.DiagnosisImageFullScreenActivity"
-            android:exported="false">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
