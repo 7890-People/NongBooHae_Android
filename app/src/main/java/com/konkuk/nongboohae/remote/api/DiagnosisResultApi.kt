@@ -26,17 +26,3 @@ interface DiagnosisResultApi {
     ): Response<DiagnosisResultResponse>
 }
 
-/*
-interface DiagnosisResultApi {
-    @POST("/disease/disease/diagnose")
-    suspend fun postDiagnosis(
-        @Body diagnosisResultRequest:DiagnosisResultRequest
-    ): Response<DiagnosisResultResponse>
-}
-
-data class DiagnosisResultRequest(
-    @SerializedName("plant")
-    val plant: String,
-    @SerializedName("img_url")
-    val imgUrl: String
-)*/

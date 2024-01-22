@@ -33,7 +33,6 @@ class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository
             val plantImg = MultipartBody.Part.createFormData("img", file.name, requestFile) //폼데이터
             val plantNameRequest: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), plantName)
             repository.postDiagnosis(plantImg, plantNameRequest)
-            //repository.postDiagnosis(DiagnosisResultRequest("포도","img_url"))
         }
         response.byState(
             onSuccess = {

@@ -14,6 +14,4 @@ class DiagnosisResultRepository :BaseRepository() {
     suspend fun postDiagnosis(plantImg: MultipartBody.Part, plantName: RequestBody): ApiState<DiagnosisResultResponse> =
         makeRequest { api.postDiagnosis(img = plantImg, plantName = plantName) }
 
-/*    suspend fun postDiagnosis(diagnosisResultRequest: DiagnosisResultRequest): ApiState<DiagnosisResultResponse> =
-        makeRequest { api.postDiagnosis(diagnosisResultRequest) }*/
 }
