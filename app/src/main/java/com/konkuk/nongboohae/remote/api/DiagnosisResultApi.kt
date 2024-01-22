@@ -21,7 +21,7 @@ interface DiagnosisResultApi {
     @POST("/disease/diagnose")
     suspend fun postDiagnosis(
         //@Header("Authorization") token: String? = "Bearer [tokenString]}",
-        @Part img: MultipartBody.Part?,
+        @Part img: MultipartBody.Part,
         @Part("plant") plantName: RequestBody
     ): Response<DiagnosisResultResponse>
 }

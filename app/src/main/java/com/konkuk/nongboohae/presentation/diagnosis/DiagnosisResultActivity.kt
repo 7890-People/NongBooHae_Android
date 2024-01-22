@@ -17,7 +17,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     override val TAG: String = "DiagnosisResultActivity"
     override val layoutRes: Int = R.layout.activity_diagnosis_result
     lateinit var viewModel: DiagnosisResultViewModel
-    lateinit var photoUri : Uri
+    lateinit var photoUri : String
     lateinit var plantName: String
 
     override fun initViewModel() {
@@ -41,7 +41,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     }
 
     private fun initData() {
-        photoUri = intent.getStringExtra("photoUri")!!.toUri()
+        photoUri = intent.getStringExtra("photoUri")!!
         val filePath = intent.getStringExtra("currentPhotoPath")
         plantName = "포도"
         Glide.with(this)
