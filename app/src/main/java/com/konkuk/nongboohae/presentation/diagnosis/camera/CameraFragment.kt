@@ -69,6 +69,11 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>() {
         binding.captureBtn.setOnSingleClickListener {
             takePhoto()
         }
+
+        arguments?.let {
+            val plantStr = "촬영작물: ${it.getString("plantName")}"
+            binding.plantIndicatorTextView.text = plantStr
+        }
     }
 
 
@@ -153,12 +158,12 @@ class CameraFragment : BaseFragment<FragmentCameraBinding>() {
                     binding.captureBtn.isEnabled = true
                     Log.d(TAG, msg)
 
-                   if(output.savedUri!=null){
+                    if (output.savedUri != null) {
                         val activity = requireActivity() as CameraActivity
                         activity.showCheckFragment(output.savedUri!!)
-                    }else{
+                    } else {
                         showToast("이미지를 불러오는 데 실패하였습니다")
-                   }
+                    }
 
                 }
             }

@@ -14,11 +14,13 @@ class CheckPhotoFragment : BaseFragment<FragmentCheckPhotoBinding>() {
 
     private lateinit var currentPhotoPath: String
     private lateinit var uri: String
+    private lateinit var plantName: String
 
     override fun afterViewCreated() {
         arguments?.apply {
-            uri = getString("photoUri", null)
-            currentPhotoPath = getString("currentPhotoPath", null)
+            uri = getString("photoUri")!!
+            currentPhotoPath = getString("currentPhotoPath")!!
+            plantName = getString("plantName")!!
         }
 
         binding.imageView.clipToOutline = true
@@ -38,6 +40,7 @@ class CheckPhotoFragment : BaseFragment<FragmentCheckPhotoBinding>() {
         val intent = Intent(requireActivity(), DiagnosisResultActivity::class.java)
         intent.putExtra("photoUri", uri)
         intent.putExtra("currentPhotoPath", currentPhotoPath)
+        intent.putExtra("plantName", plantName)
         startActivity(intent)
         requireActivity().finish()
     }

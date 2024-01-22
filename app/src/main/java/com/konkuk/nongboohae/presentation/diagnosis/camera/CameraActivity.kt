@@ -15,10 +15,16 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>() {
     override val TAG: String = "CameraActivity"
     override val layoutRes: Int = R.layout.activity_camera
 
+    private lateinit var plantName: String
+
     override fun initViewModel() {}
 
     override fun afterViewCreated() {
+        plantName = intent.getStringExtra("plantName")!!
+        val bundle = Bundle()
+        bundle.putString("plantName", plantName)
         val cameraFragment = CameraFragment()
+        cameraFragment.arguments = bundle
         supportFragmentManager.commit {
             setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             replace(R.id.frameLayout, cameraFragment, cameraFragment.javaClass.name)
@@ -49,6 +55,7 @@ class CameraActivity : BaseActivity<ActivityCameraBinding>() {
         val bundle = Bundle()
         bundle.putString("photoUri", uri.toString())
         bundle.putString("currentPhotoPath", absolutePath(uri))
+        bundle.putString("plantName", plantName)
         checkPhotoFragment.arguments = bundle
 
         supportFragmentManager.commit {

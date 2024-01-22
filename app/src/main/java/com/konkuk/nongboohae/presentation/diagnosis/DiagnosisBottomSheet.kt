@@ -1,30 +1,18 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.konkuk.nongboohae.databinding.DialogDiagnosisBottomSheetBinding
 import com.konkuk.nongboohae.presentation.diagnosis.camera.CameraActivity
 
-/*
-액티비티에서 다음과 같이 호출하여 사용가능
-val modal = DiagnosisBottomSheet()
-modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransParentBottomSheetDialogTheme)
-modal.show(supportFragmentManager, DiagnosisBottomSheet.TAG)
-*/
-
 class DiagnosisBottomSheet : BottomSheetDialogFragment() {
     private lateinit var binding: DialogDiagnosisBottomSheetBinding
+    lateinit var plantName: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,10 +51,11 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
     }
 
     private fun callCamera() {
+        plantName = binding.diagnosisBottomSheetCrop1Tv.text.toString()
         val intent = Intent(requireContext(), CameraActivity::class.java)
+        intent.putExtra("plantName", plantName)
         startActivity(intent)
         dismiss()
     }
-
 
 }
