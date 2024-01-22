@@ -76,7 +76,7 @@
             android:name=".presentation.diagnosis.DiagnosisResultActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.diagnosis.CameraActivity"
+            android:name=".presentation.diagnosis.camera.CameraActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.diagnosis.DiagnosisImageFullScreenActivity"

@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.konkuk.nongboohae.databinding.DialogDiagnosisBottomSheetBinding
+import com.konkuk.nongboohae.presentation.diagnosis.camera.CameraActivity
 
 /*
 액티비티에서 다음과 같이 호출하여 사용가능

@@ -1,4 +1,4 @@
-package com.konkuk.nongboohae.presentation.diagnosis
+package com.konkuk.nongboohae.presentation.diagnosis.camera
 
 import android.Manifest
 import android.content.ContentValues
