@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
-import org.json.JSONObject
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -14,11 +14,16 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
     private const val BASE_URL = "http://112.152.7.20:26900"
 
+    private val httpLoggingInterceptor =
+        HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+
+
     //interceptor 생성
     private val interceptorClient = OkHttpClient().newBuilder()
-/*        .connectTimeout(5, TimeUnit.SECONDS)
+        .connectTimeout(5, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)
-        .writeTimeout(15, TimeUnit.SECONDS)*/
+        .writeTimeout(15, TimeUnit.SECONDS)
+        .addInterceptor(httpLoggingInterceptor)
         .addInterceptor(ResponseInterceptor())
         .build()
 
