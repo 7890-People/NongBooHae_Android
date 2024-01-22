@@ -36,6 +36,7 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
     private val CAMERA_PERMISSION_REQUEST_CODE = 100
     val REQUEST_TAKE_PHOTO = 1
     lateinit var currentPhotoPath: String
+    lateinit var plantName: String
     private var getPhotoURI: Uri? = null
 
     override fun onCreateView(
@@ -55,12 +56,15 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
         Glide.with(requireActivity()).load("https://www.amnews.co.kr/news/photo/202011/44247_31347_2423.jpg").into(binding.diagnosisBottomSheetCrop3Iv)
         binding.diagnosisBottomSheetCrop1Cv.setOnClickListener {
             requestCameraPermission()
+            plantName = binding.diagnosisBottomSheetCrop1Tv.text.toString()
         }
         binding.diagnosisBottomSheetCrop2Cv.setOnClickListener {
             requestCameraPermission()
+            plantName = binding.diagnosisBottomSheetCrop2Tv.text.toString()
         }
         binding.diagnosisBottomSheetCrop3Cv.setOnClickListener {
             requestCameraPermission()
+            plantName = binding.diagnosisBottomSheetCrop3Tv.text.toString()
         }
     }
 
@@ -137,6 +141,7 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
             val intent = Intent(requireActivity(), DiagnosisResultActivity::class.java)
             intent.putExtra("photoUri", getPhotoURI.toString())
             intent.putExtra("currentPhotoPath", currentPhotoPath.toString())
+            intent.putExtra("plantName", plantName)
             startActivity(intent)
             dismiss()
         }

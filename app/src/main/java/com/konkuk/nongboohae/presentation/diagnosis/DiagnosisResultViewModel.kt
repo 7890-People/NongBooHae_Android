@@ -30,15 +30,15 @@ class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository
             Log.d("retrofit", filePath.toString())
             val file = File(filePath)
             val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
-            val plantImg = MultipartBody.Part.createFormData("plantImg", file.name, requestFile) //폼데이터
+            val plantImg = MultipartBody.Part.createFormData("img", file.name, requestFile) //폼데이터
             val plantNameRequest: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), plantName)
             repository.postDiagnosis(plantImg, plantNameRequest)
-            //repository.postDiagnosis(DiagnosisResultRequest("포도","img_url"))
         }
         response.byState(
             onSuccess = {
                 Log.d("retrofit", "통신 성공")
                 _diagnosisResult.value = it
+                Log.d("retrofit", it.toString())
             },
             onFailure = {
                 Log.d("retrofit", it.toString())
