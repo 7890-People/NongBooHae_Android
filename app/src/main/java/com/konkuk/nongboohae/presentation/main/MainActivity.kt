@@ -16,6 +16,7 @@ import com.konkuk.nongboohae.databinding.ActivityMainBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
 import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
+import com.konkuk.nongboohae.presentation.main.profile.ProfileFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
 import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
@@ -36,6 +37,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private val historyFragment by lazy {
         supportFragmentManager.findFragmentByTag(HistoryFragment::class.java.name) ?: HistoryFragment()
+    }
+
+    private val profileFragment by lazy {
+        supportFragmentManager.findFragmentByTag(ProfileFragment::class.java.name) ?: ProfileFragment()
     }
 
     override fun initViewModel() {
@@ -60,6 +65,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         return when (page) {
             MainPage.SEARCH -> searchFragment
             MainPage.HISTORY -> historyFragment
+            MainPage.PROFILE -> profileFragment
         }
     }
 
@@ -121,7 +127,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     mainViewModel.gotoPage(MainPage.SEARCH)
                 }
                 R.id.btnv_mypage -> {
-
+                    mainViewModel.gotoPage(MainPage.PROFILE)
                 }
             }
             return@setOnItemSelectedListener true
