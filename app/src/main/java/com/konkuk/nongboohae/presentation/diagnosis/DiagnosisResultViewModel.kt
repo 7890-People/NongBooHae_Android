@@ -24,6 +24,15 @@ class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository
     private val _diagnosisResult = MutableLiveData<DiagnosisResultResponse>()
     val diagnosisResultResponse : LiveData<DiagnosisResultResponse> = _diagnosisResult
 
+    fun formattingString(s: String): String {
+        // <br/> 기준으로 나누기 => 문장 앞에 - 삽입, 뒤에 \n 삽입
+        val sentences = s.split("<br/>")
+        val formattedText = StringBuilder()
+        for (sentence in sentences) {
+            formattedText.append("- ").append(sentence.trim()).append("\n")
+        }
+        return formattedText.toString()
+    }
 
     fun requestDiagnosisResult(filePath: String?, plantName: String) = viewModelScope.launch {
         val response = withContext(Dispatchers.IO) {
@@ -37,7 +46,13 @@ class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository
         response.byState(
             onSuccess = {
                 Log.d("retrofit", "통신 성공")
-                _diagnosisResult.value = it
+                val formattedResponse  =  DiagnosisResultResponse(
+                        it.diseaseName,
+                        formattingString(it.condition),
+                        formattingString(it.symptoms),
+                        formattingString(it.preventionMethod),
+                        it.diseaseImg)
+                _diagnosisResult.value = formattedResponse
                 Log.d("retrofit", it.toString())
             },
             onFailure = {

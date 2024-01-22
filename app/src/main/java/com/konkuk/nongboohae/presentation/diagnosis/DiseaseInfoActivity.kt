@@ -5,6 +5,7 @@ import com.bumptech.glide.Glide
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityDiseaseInfoBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
+import com.konkuk.nongboohae.remote.response.DiagnosisResultResponse
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
 
 class DiseaseInfoActivity : BaseActivity<ActivityDiseaseInfoBinding>() {
@@ -22,10 +23,14 @@ class DiseaseInfoActivity : BaseActivity<ActivityDiseaseInfoBinding>() {
     }
 
     private fun initData() {
-        val diseaseName = intent.getStringExtra("diseaseName")
-        val imgUrl = intent.getStringExtra("imgUrl")
-        binding.diseaseInfoDxNameTv.text = diseaseName
-        Glide.with(this).load(imgUrl).into(binding.diseaseInfoPhotoIv)
+        val plantName = intent.getStringExtra("plantName")
+        val diagnosisResultResponse = intent.getSerializableExtra("diagnosisResultResponse") as DiagnosisResultResponse
+        binding.diseaseInfoCropNameTv.text = plantName
+        binding.diseaseInfoDxNameTv.text = diagnosisResultResponse.diseaseName
+        binding.diseaseInfoEnvContentTv.text = diagnosisResultResponse.condition
+        binding.diseaseInfoSymptomContentTv.text = diagnosisResultResponse.symptoms
+        binding.diseaseInfoTreatmentContentTv.text = diagnosisResultResponse.preventionMethod
+        Glide.with(this).load(diagnosisResultResponse.diseaseImg).into(binding.diseaseInfoPhotoIv)
     }
 
     private fun initClickListener() {

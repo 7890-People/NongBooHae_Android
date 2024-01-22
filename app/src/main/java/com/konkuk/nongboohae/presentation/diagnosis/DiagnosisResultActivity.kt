@@ -34,16 +34,8 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
         viewModel.diagnosisResultResponse.observe(this) {
             binding.diagnosisResultDiseaseTv.text = it.diseaseName
             binding.diagnosisResultEnvContentTv.text = it.condition
-
-            // <br/> 기준으로 나누기 => 문장 앞에 - 삽입, 뒤에 \n 삽입
-            val sentences = it.symptoms.split("<br/>")
-            val formattedText = StringBuilder()
-            for (sentence in sentences) {
-                formattedText.append("- ").append(sentence.trim()).append("\n")
-            }
-            val symptoms = formattedText.toString()
-            binding.diagnosisResultSymptomContentTv.text = symptoms
-
+            binding.diagnosisResultSymptomContentTv.text = it.symptoms
+            binding.diagnosisResultTreatmentContentTv.text = it.preventionMethod
         }
     }
 
@@ -60,11 +52,8 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     private fun initClickListener() {
         binding.diagnosisResultDiseaseMoreIv.setOnClickListener {
             val intent = Intent(this, DiseaseInfoActivity::class.java)
-            intent.putExtra("diseaseName", binding.diagnosisResultDiseaseTv.text)
-            intent.putExtra(
-                "imgUrl",
-                "https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3013_0120161027094643027_TMB.jpg"
-            )
+            intent.putExtra("plantName", plantName)
+            intent.putExtra("diagnosisResultResponse", viewModel.diagnosisResultResponse.value)
             startActivity(intent)
         }
         binding.diagnosisResultExitIv.setOnClickListener {
