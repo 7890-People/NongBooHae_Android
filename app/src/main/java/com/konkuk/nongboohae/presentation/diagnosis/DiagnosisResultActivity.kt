@@ -1,7 +1,7 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
 import android.content.Intent
-import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.konkuk.nongboohae.R
@@ -43,6 +43,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
         photoUri = intent.getStringExtra("photoUri")!!
         val filePath = intent.getStringExtra("currentPhotoPath")
         plantName = intent.getStringExtra("plantName")!!
+        Log.d("retrofit-plantName", plantName.toString())
         Glide.with(this)
             .load(photoUri)
             .into(binding.diagnosisResultPhotoIv)
