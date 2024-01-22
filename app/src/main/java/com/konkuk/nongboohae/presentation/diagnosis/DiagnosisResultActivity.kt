@@ -43,7 +43,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     private fun initData() {
         photoUri = intent.getStringExtra("photoUri")!!
         val filePath = intent.getStringExtra("currentPhotoPath")
-        plantName = "포도"
+        plantName = intent.getStringExtra("plantName")!!
         Glide.with(this)
             .load(photoUri)
             .into(binding.diagnosisResultPhotoIv)
