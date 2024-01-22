@@ -17,6 +17,8 @@ import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository) : ViewModel() {
@@ -25,13 +27,14 @@ class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository
     val diagnosisResultResponse : LiveData<DiagnosisResultResponse> = _diagnosisResult
 
 
-    fun requestDiagnosisResult(filePath: String?, plantName: String) = viewModelScope.launch {
+    fun requestDiagnosisResult(filePath: String, plantName: String) = viewModelScope.launch {
         val response = withContext(Dispatchers.IO) {
-            Log.d("retrofit", filePath.toString())
+            Log.d("retrofit", filePath)
             val file = File(filePath)
-            val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
+            val requestFile = file.asRequestBody("image/*".toMediaTypeOrNull())
             val plantImg = MultipartBody.Part.createFormData("img", file.name, requestFile) //폼데이터
-            val plantNameRequest: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), plantName)
+            val plantNameRequest: RequestBody =
+                plantName.toRequestBody("text/plain".toMediaTypeOrNull())
             repository.postDiagnosis(plantImg, plantNameRequest)
         }
         response.byState(
