@@ -56,15 +56,15 @@ class DiagnosisBottomSheet : BottomSheetDialogFragment() {
         Glide.with(requireActivity()).load("https://www.amnews.co.kr/news/photo/202011/44247_31347_2423.jpg").into(binding.diagnosisBottomSheetCrop3Iv)
         binding.diagnosisBottomSheetCrop1Cv.setOnClickListener {
             requestCameraPermission()
-            plantName = binding.diagnosisBottomSheetCrop1Tv.toString()
+            plantName = binding.diagnosisBottomSheetCrop1Tv.text.toString()
         }
         binding.diagnosisBottomSheetCrop2Cv.setOnClickListener {
             requestCameraPermission()
-            plantName = binding.diagnosisBottomSheetCrop2Tv.toString()
+            plantName = binding.diagnosisBottomSheetCrop2Tv.text.toString()
         }
         binding.diagnosisBottomSheetCrop3Cv.setOnClickListener {
             requestCameraPermission()
-            plantName = binding.diagnosisBottomSheetCrop3Tv.toString()
+            plantName = binding.diagnosisBottomSheetCrop3Tv.text.toString()
         }
     }
 
