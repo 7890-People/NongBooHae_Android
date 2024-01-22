@@ -16,6 +16,9 @@ class PostPreviewAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(post: PostPreviewUiModel) {
             binding.model = post
+            binding.root.setOnClickListener {
+                itemClickedListener(post)
+            }
         }
     }
 

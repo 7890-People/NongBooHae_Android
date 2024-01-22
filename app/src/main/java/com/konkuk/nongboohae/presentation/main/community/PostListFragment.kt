@@ -1,7 +1,10 @@
 package com.konkuk.nongboohae.presentation.main.community
 
 import BaseFragment
+import android.content.Intent
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.konkuk.mocacong.presentation.main.MainViewModel
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.FragmentPostListBinding
 import com.konkuk.nongboohae.presentation.model.PostPreviewUiModel
@@ -13,6 +16,8 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>() {
         get() = "Postlist"
     override val layoutRes: Int
         get() = R.layout.fragment_post_list
+
+    val mainViewModel: MainViewModel by activityViewModels()
 
     override fun afterViewCreated() {
         arguments?.let {
@@ -28,7 +33,7 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>() {
         }
 
         val adapter = PostPreviewAdapter {
-
+            startActivity(Intent(requireContext(), PostDetailActivity::class.java))
         }
 
         val date = SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(Date()).toString()

@@ -4,10 +4,12 @@ import BaseFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.konkuk.mocacong.presentation.main.MainViewModel
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.FragmentCommunityBinding
 
@@ -16,6 +18,8 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>() {
         get() = "Community"
     override val layoutRes: Int
         get() = R.layout.fragment_community
+
+    val mainViewModel: MainViewModel by activityViewModels()
 
     override fun afterViewCreated() {
         setTabViewPager()
