@@ -38,6 +38,7 @@ class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository
             onSuccess = {
                 Log.d("retrofit", "통신 성공")
                 _diagnosisResult.value = it
+                Log.d("retrofit", it.toString())
             },
             onFailure = {
                 Log.d("retrofit", it.toString())

@@ -1,17 +1,14 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
+import android.R.attr.text
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
-import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityDiagnosisResultBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.util.factory.ViewModelFactory
+
 
 class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     override val TAG: String = "DiagnosisResultActivity"
@@ -36,7 +33,17 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     private fun initObservers() {
         viewModel.diagnosisResultResponse.observe(this){
             binding.diagnosisResultDiseaseTv.text = it.diseaseName
-            // ..... 이런식으로 하는 거 맞나요?
+            binding.diagnosisResultEnvContentTv.text = it.condition
+
+            // <br/> 기준으로 나누기 => 문장 앞에 - 삽입, 뒤에 \n 삽입
+            val sentences = it.symptoms.split("<br/>")
+            val formattedText = StringBuilder()
+            for (sentence in sentences) {
+                formattedText.append("- ").append(sentence.trim()).append("\n")
+            }
+            val symptoms = formattedText.toString()
+            binding.diagnosisResultSymptomContentTv.text = symptoms
+
         }
     }
 
