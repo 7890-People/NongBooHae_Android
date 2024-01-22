@@ -1,10 +1,7 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
 import android.content.Intent
-import android.database.Cursor
 import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -17,7 +14,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     override val TAG: String = "DiagnosisResultActivity"
     override val layoutRes: Int = R.layout.activity_diagnosis_result
     lateinit var viewModel: DiagnosisResultViewModel
-    lateinit var photoUri : Uri
+    lateinit var photoUri: Uri
     lateinit var plantName: String
 
     override fun initViewModel() {
@@ -34,7 +31,7 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
     }
 
     private fun initObservers() {
-        viewModel.diagnosisResultResponse.observe(this){
+        viewModel.diagnosisResultResponse.observe(this) {
             binding.diagnosisResultDiseaseTv.text = it.diseaseName
             // ..... 이런식으로 하는 거 맞나요?
         }
@@ -54,7 +51,10 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
         binding.diagnosisResultDiseaseMoreIv.setOnClickListener {
             val intent = Intent(this, DiseaseInfoActivity::class.java)
             intent.putExtra("diseaseName", binding.diagnosisResultDiseaseTv.text)
-            intent.putExtra("imgUrl", "https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3013_0120161027094643027_TMB.jpg")
+            intent.putExtra(
+                "imgUrl",
+                "https://www.nongsaro.go.kr/portal/imgView.do?filePath=/npms/photo/sickns2/&fileName=img_3013_0120161027094643027_TMB.jpg"
+            )
             startActivity(intent)
         }
         binding.diagnosisResultExitIv.setOnClickListener {
