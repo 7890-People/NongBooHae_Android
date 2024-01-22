@@ -57,6 +57,12 @@ class DiagnosisResultActivity : BaseActivity<ActivityDiagnosisResultBinding>() {
             intent.putExtra("diagnosisResultResponse", viewModel.diagnosisResultResponse.value)
             startActivity(intent)
         }
+        binding.moreCvButton.setOnClickListener {
+            val intent = Intent(this, DiseaseInfoActivity::class.java)
+            intent.putExtra("plantName", plantName)
+            intent.putExtra("diagnosisResultResponse", viewModel.diagnosisResultResponse.value)
+            startActivity(intent)
+        }
         binding.diagnosisResultExitIv.setOnClickListener {
             finish()
         }
