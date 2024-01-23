@@ -53,10 +53,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             ?: ProfileFragment()
     }
 
-    private val profileEditFragment by lazy {
-        supportFragmentManager.findFragmentByTag(ProfileEditFragment::class.java.name)
-            ?: ProfileEditFragment()
-    }
 
     override fun initViewModel() {
         searchViewModel = ViewModelProvider(
@@ -82,7 +78,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             MainPage.SEARCH -> searchFragment
             MainPage.HISTORY -> historyFragment
             MainPage.PROFILE -> profileFragment
-            MainPage.PROFILE_EDIT -> profileEditFragment
             MainPage.COMMUNITY -> communityFragment
         }
     }
