@@ -21,4 +21,14 @@ class MainViewModel() : ViewModel() {
         }
     }
 
+    private val _btnvFlow = MutableStateFlow(true)
+    val btnvFlow = _btnvFlow
+        .stateIn(viewModelScope, SharingStarted.Eagerly, true)
+
+    fun setBtnvVisibility(visibility: Boolean) {
+        viewModelScope.launch {
+            _btnvFlow.emit(visibility)
+        }
+    }
+
 }

@@ -15,6 +15,7 @@ import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.ActivityMainBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
+import com.konkuk.nongboohae.presentation.main.community.CommunityFragment
 import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
@@ -31,12 +32,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     lateinit var mainViewModel: MainViewModel
 
     private val searchFragment by lazy {
-        supportFragmentManager.findFragmentByTag(SearchFragment::class.java.name) ?: SearchFragment()
+        supportFragmentManager.findFragmentByTag(SearchFragment::class.java.name)
+            ?: SearchFragment()
     }
 
     private val historyFragment by lazy {
-        supportFragmentManager.findFragmentByTag(HistoryFragment::class.java.name) ?: HistoryFragment()
+        supportFragmentManager.findFragmentByTag(HistoryFragment::class.java.name)
+            ?: HistoryFragment()
     }
+
+    private val communityFragment by lazy {
+        supportFragmentManager.findFragmentByTag(CommunityFragment::class.java.name)
+            ?: CommunityFragment()
+    }
+
 
     override fun initViewModel() {
         searchViewModel = ViewModelProvider(
@@ -47,6 +56,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun afterViewCreated() {
         collectPage()
+        collectBtnvFlow()
         binding.fab.setOnClickListener {
             val modal = DiagnosisBottomSheet()
             modal.setStyle(DialogFragment.STYLE_NORMAL, R.style.TransParentBottomSheetDialogTheme)
@@ -60,8 +70,20 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         return when (page) {
             MainPage.SEARCH -> searchFragment
             MainPage.HISTORY -> historyFragment
+            MainPage.COMMUNITY -> communityFragment
         }
     }
+
+    private fun collectBtnvFlow() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                mainViewModel.btnvFlow.collect {
+                    setBtnvVisibility(it)
+                }
+            }
+        }
+    }
+
 
     private fun collectPage() {
         Log.d(TAG, "collectPage 시작")
@@ -84,6 +106,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+
     fun setBtnvVisibility(visibility: Boolean) {
         binding.bottomAppBar.visibility = if (visibility) View.VISIBLE else View.GONE
         binding.fab.visibility = if (visibility) View.VISIBLE else View.GONE
@@ -92,13 +115,18 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var backButtonPressedOnce = false
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (backButtonPressedOnce) finish()
-            else {
-                backButtonPressedOnce = true
-                showToast("한 번 더 누르면 종료됩니다")
-                lifecycleScope.launch {
-                    delay(2000)
-                    backButtonPressedOnce = false
+            when (supportFragmentManager.fragments.first { it.isVisible }) {
+
+                else -> {
+                    if (backButtonPressedOnce) finish()
+                    else {
+                        backButtonPressedOnce = true
+                        showToast("한 번 더 누르면 종료됩니다")
+                        lifecycleScope.launch {
+                            delay(2000)
+                            backButtonPressedOnce = false
+                        }
+                    }
                 }
             }
         }
@@ -115,7 +143,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     mainViewModel.gotoPage(MainPage.HISTORY)
                 }
                 R.id.btnv_community -> {
-
+                    mainViewModel.gotoPage(MainPage.COMMUNITY)
                 }
                 R.id.btnv_search -> {
                     mainViewModel.gotoPage(MainPage.SEARCH)

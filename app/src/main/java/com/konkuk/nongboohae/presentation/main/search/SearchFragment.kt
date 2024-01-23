@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.search.SearchView
+import com.konkuk.mocacong.presentation.main.MainViewModel
 import com.konkuk.nongboohae.R
 import com.konkuk.nongboohae.databinding.FragmentSearchBinding
 import com.konkuk.nongboohae.presentation.main.MainActivity
@@ -16,10 +17,12 @@ import com.konkuk.nongboohae.presentation.main.search.model.DiseaseListPresentMo
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val TAG: String = "DiseaseListFragment"
     override val layoutRes: Int = R.layout.fragment_search
-    val viewModel: SearchViewModel by activityViewModels()
+    val searchViewModel: SearchViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     lateinit var diseaseListItemAdapter: DiseaseListItemAdapter
     lateinit var searchItemAdapter: SearchItemAdapter
+
 
     override fun afterViewCreated() {
         initLayouts()
@@ -46,7 +49,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun initObservers() {
-        viewModel.diseaseList.observe(this) {
+        searchViewModel.diseaseList.observe(this) {
             diseaseListItemAdapter.diseaseList = it
             diseaseListItemAdapter.notifyDataSetChanged()
 
@@ -56,7 +59,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun initData() {
-        viewModel.requestDiseaseList(category = "all")
+        searchViewModel.requestDiseaseList(category = "all")
     }
 
 
@@ -77,10 +80,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             val activity = requireActivity() as MainActivity
             if (newState == SearchView.TransitionState.SHOWING) {
                 //TODO: 작물: ㅇㅇ searchPrefixText
-                activity.setBtnvVisibility(false)
+                mainViewModel.setBtnvVisibility(false)
                 activityDispatcher.addCallback(onSearchBackPressedCallback)
             } else if (newState == SearchView.TransitionState.HIDING) {
-                activity.setBtnvVisibility(true)
+                mainViewModel.setBtnvVisibility(true)
                 activityDispatcher.addCallback(activity.onBackPressedCallback)
             }
         }
@@ -93,17 +96,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(p0: Editable?) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val filteredList = viewModel.entireList.filter { disease ->
+                val filteredList = searchViewModel.entireList.filter { disease ->
                     disease.korName.contains(editText.text.toString())
                 }
                 searchItemAdapter.diseaseList = filteredList
                 searchItemAdapter.notifyDataSetChanged()
             }
         })
-    }
-
-    private fun setCategoryListener() {
-
     }
 
 }
