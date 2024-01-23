@@ -8,7 +8,7 @@ sealed class ApiState<T>(
 
     fun <R> byState(
         onSuccess: (T) -> (R?),
-        onFailure: (ErrorResponse) -> (Unit) = {},
+        onFailure: (ErrorResponse?) -> (Unit) = {},
         onLoading: () -> (Unit) = {}
     ): R? {
         when (this) {
@@ -16,9 +16,7 @@ sealed class ApiState<T>(
                 return this.data?.let(onSuccess)
             }
             is Error -> {
-                this.errorResponse?.let { er ->
-                    onFailure.invoke(er)
-                }
+                onFailure(errorResponse)
             }
             is Loading -> {
                 onLoading.invoke()

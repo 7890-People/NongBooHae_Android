@@ -1,17 +1,13 @@
 package com.konkuk.nongboohae.presentation.diagnosis
 
-import android.content.Context
-import android.database.Cursor
-import android.net.Uri
-import android.provider.MediaStore
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.konkuk.nongboohae.remote.response.DiagnosisResultResponse
+import com.konkuk.nongboohae.util.network.ApiState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -23,8 +19,10 @@ import java.io.File
 
 class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository) : ViewModel() {
 
-    private val _diagnosisResult = MutableLiveData<DiagnosisResultResponse>()
-    val diagnosisResultResponse : LiveData<DiagnosisResultResponse> = _diagnosisResult
+    private val _diagnosisResultResponse = MutableLiveData<ApiState<DiagnosisResultResponse>>()
+    val diagnosisResultResponse: LiveData<ApiState<DiagnosisResultResponse>> = _diagnosisResultResponse
+
+    var diagnosisResultTemp : DiagnosisResultResponse? = null
 
     fun formattingString(s: String): String {
         // <br/> 기준으로 나누기 => 문장 앞에 - 삽입, 뒤에 \n 삽입
@@ -46,24 +44,6 @@ class DiagnosisResultViewModel(private val repository: DiagnosisResultRepository
                 plantName.toRequestBody("text/plain".toMediaTypeOrNull())
             repository.postDiagnosis(plantImg, plantNameRequest)
         }
-        response.byState(
-            onSuccess = {
-                Log.d("retrofit", "통신 성공")
-                val formattedResponse  =  DiagnosisResultResponse(
-                        it.diseaseName,
-                        formattingString(it.condition),
-                        formattingString(it.symptoms),
-                        formattingString(it.preventionMethod),
-                        it.diseaseImg)
-                _diagnosisResult.value = formattedResponse
-                Log.d("retrofit", it.toString())
-            },
-            onFailure = {
-                Log.d("retrofit", it.toString())
-            },
-            onLoading = {
-
-            }
-        )
+        _diagnosisResultResponse.value = response
     }
 }
