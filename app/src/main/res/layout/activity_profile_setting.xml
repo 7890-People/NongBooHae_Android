@@ -70,6 +70,16 @@
             app:layout_constraintStart_toStartOf="@id/setting_user_tv"
             android:layout_marginTop="20dp"/>
 
+        <com.suke.widget.SwitchButton
+            android:id="@+id/setting_alarm_on_off_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/setting_alarm_on_off_tv"
+            app:layout_constraintBottom_toBottomOf="@id/setting_alarm_on_off_tv"
+            app:sb_show_indicator="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"/>
+
         <TextView
             android:id="@+id/setting_event_tv"
             android:layout_width="wrap_content"
@@ -79,6 +89,16 @@
             app:layout_constraintTop_toBottomOf="@id/setting_alarm_on_off_tv"
             app:layout_constraintStart_toStartOf="@id/setting_user_tv"
             android:layout_marginTop="20dp"/>
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/setting_event_on_off_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/setting_event_tv"
+            app:layout_constraintBottom_toBottomOf="@id/setting_event_tv"
+            app:sb_show_indicator="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"/>
 
         <View
             android:id="@+id/line1"
