@@ -17,6 +17,8 @@ import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
 import com.konkuk.nongboohae.presentation.main.community.CommunityFragment
 import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
+import com.konkuk.nongboohae.presentation.main.profile.ProfileEditFragment
+import com.konkuk.nongboohae.presentation.main.profile.ProfileFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
 import com.konkuk.nongboohae.presentation.main.search.SearchViewModel
@@ -46,6 +48,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             ?: CommunityFragment()
     }
 
+    private val profileFragment by lazy {
+        supportFragmentManager.findFragmentByTag(ProfileFragment::class.java.name)
+            ?: ProfileFragment()
+    }
+
 
     override fun initViewModel() {
         searchViewModel = ViewModelProvider(
@@ -70,6 +77,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         return when (page) {
             MainPage.SEARCH -> searchFragment
             MainPage.HISTORY -> historyFragment
+            MainPage.PROFILE -> profileFragment
             MainPage.COMMUNITY -> communityFragment
         }
     }
@@ -115,6 +123,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var backButtonPressedOnce = false
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
+
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                supportFragmentManager.popBackStack()
+                return
+            }
+
             when (supportFragmentManager.fragments.first { it.isVisible }) {
 
                 else -> {
@@ -149,7 +163,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     mainViewModel.gotoPage(MainPage.SEARCH)
                 }
                 R.id.btnv_mypage -> {
-
+                    mainViewModel.gotoPage(MainPage.PROFILE)
                 }
             }
             return@setOnItemSelectedListener true
