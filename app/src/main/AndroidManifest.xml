@@ -84,6 +84,9 @@
         <activity
             android:name=".presentation.main.profile.ProfileSettingActivity"
             android:exported="true" />
+        <activity
+            android:name=".presentation.main.community.PostDetailActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
