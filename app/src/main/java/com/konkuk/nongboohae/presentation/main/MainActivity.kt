@@ -16,6 +16,7 @@ import com.konkuk.nongboohae.databinding.ActivityMainBinding
 import com.konkuk.nongboohae.presentation.base.BaseActivity
 import com.konkuk.nongboohae.presentation.diagnosis.DiagnosisBottomSheet
 import com.konkuk.nongboohae.presentation.main.history.HistoryFragment
+import com.konkuk.nongboohae.presentation.main.profile.ProfileEditFragment
 import com.konkuk.nongboohae.presentation.main.profile.ProfileFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchFragment
 import com.konkuk.nongboohae.presentation.main.search.SearchRepository
@@ -43,6 +44,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         supportFragmentManager.findFragmentByTag(ProfileFragment::class.java.name) ?: ProfileFragment()
     }
 
+    private val profileEditFragment by lazy {
+        supportFragmentManager.findFragmentByTag(ProfileEditFragment::class.java.name) ?: ProfileEditFragment()
+    }
+
     override fun initViewModel() {
         searchViewModel = ViewModelProvider(
             this, ViewModelFactory(SearchRepository())
@@ -66,6 +71,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             MainPage.SEARCH -> searchFragment
             MainPage.HISTORY -> historyFragment
             MainPage.PROFILE -> profileFragment
+            MainPage.PROFILE_EDIT -> profileEditFragment
         }
     }
 
@@ -98,6 +104,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var backButtonPressedOnce = false
     val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
+
+            if (supportFragmentManager.backStackEntryCount > 0) {
+                supportFragmentManager.popBackStack()
+                return
+            }
+
             if (backButtonPressedOnce) finish()
             else {
                 backButtonPressedOnce = true
